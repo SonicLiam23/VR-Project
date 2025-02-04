@@ -119,8 +119,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8b064bec090cbcc4cb9b5d315a1f2f66, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Direction: 5
-  currentController: 0
+  direction: 5
 --- !u!54 &8006333626168099364
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -267,8 +266,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8b064bec090cbcc4cb9b5d315a1f2f66, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Direction: 3
-  currentController: 0
+  direction: 3
 --- !u!54 &1208379947762084705
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -415,8 +413,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8b064bec090cbcc4cb9b5d315a1f2f66, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Direction: 6
-  currentController: 0
+  direction: 6
 --- !u!54 &8264285836304925756
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -563,8 +560,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8b064bec090cbcc4cb9b5d315a1f2f66, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Direction: 0
-  currentController: 0
+  direction: 0
 --- !u!54 &6225178026710688928
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -711,8 +707,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8b064bec090cbcc4cb9b5d315a1f2f66, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Direction: 7
-  currentController: 0
+  direction: 7
 --- !u!54 &749154991718671274
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -859,8 +854,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8b064bec090cbcc4cb9b5d315a1f2f66, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Direction: 2
-  currentController: 0
+  direction: 2
 --- !u!54 &1023920044152776908
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -897,8 +891,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4828152412026115498}
+  - component: {fileID: 4248742279120995445}
   m_Layer: 0
-  m_Name: LeftDirectionChecker
+  m_Name: DirectionChecker
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -927,6 +922,19 @@ Transform:
   - {fileID: 755111534693218016}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 90}
+--- !u!114 &4248742279120995445
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6470955979704658042}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7b7422cb71ff74d4fab6633b6e9008ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  controllerToCheck: 2
 --- !u!1 &7627740319668910506
 GameObject:
   m_ObjectHideFlags: 0
@@ -1046,8 +1054,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8b064bec090cbcc4cb9b5d315a1f2f66, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Direction: 1
-  currentController: 0
+  direction: 1
 --- !u!54 &2326423986133823130
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -1194,8 +1201,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8b064bec090cbcc4cb9b5d315a1f2f66, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Direction: 4
-  currentController: 0
+  direction: 4
 --- !u!54 &7329816083245387925
 Rigidbody:
   m_ObjectHideFlags: 0
