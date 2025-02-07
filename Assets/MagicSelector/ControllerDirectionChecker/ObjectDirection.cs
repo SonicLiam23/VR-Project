@@ -27,7 +27,7 @@ public class ObjectDirection : MonoBehaviour
         // check if the the controller that collided with this direction is the one that summoned it
         if (other.CompareTag(manager.GetTagFromEnum(manager.controllerToCheck)))
         {
-            manager.SendDirection(direction);
+            manager.AddDirectionToList(direction);
         }
     }
 }

@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using System.Runtime.CompilerServices;
 using Unity.XR.CoreUtils;
 using UnityEngine;
@@ -16,6 +17,16 @@ public class DirectionManager : MonoBehaviour
     // set in editor
     [SerializeField] public ControllerSide controllerToCheck = ControllerSide.NONE;
     [HideInInspector] public SpellSelect spellSelector;
+    private int currentGestureHash;
+
+    private void OnEnable()
+    {
+        // new spell being drawn, reset hash
+        currentGestureHash = 0;
+    }
+
+
+
     // Returns the tag name given an ControllerSide enum
     public string GetTagFromEnum(ControllerSide controller)
     {
@@ -32,16 +43,15 @@ public class DirectionManager : MonoBehaviour
         }
     }
 
-    public void SendDirection(Direction dir)
+    // 
+    public void AddDirectionToList(Direction dir)
     {
-        // send direction + controller to spell/gesture manager here
-        spellSelector.SpellPerformed(GestureToSpell.ConvertGesture(dir));
+        // incrementally update hash
+        currentGestureHash ^= dir.GetHashCode();
+        spellSelector.CheckForSpell(currentGestureHash);
 
         // for now, log the direction + controller
         Debug.Log("Controller: " + controllerToCheck + " Direction: " +  dir);
-
-        // once the direction has been sent, destroy this object
-        Destroy(gameObject);
     }
 }
 
