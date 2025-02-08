@@ -15,8 +15,10 @@ public interface ISpellState
     static public SpellStateMachine stateMachine;
     public void OnStateEnter();
     public void OnStateLeave();
-    public GameObject GetRune();
     public void OnCast();
+    
+    // in SpellBase.cs
+    public GameObject GetRune();
     public RuneSpawnPosition GetSpawnPosition();
     public int GetSpellHash();
 }

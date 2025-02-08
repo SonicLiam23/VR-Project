@@ -43,15 +43,15 @@ public class DirectionManager : MonoBehaviour
         }
     }
 
-    // 
     public void AddDirectionToList(Direction dir)
     {
         // incrementally update hash
-        currentGestureHash ^= dir.GetHashCode();
+        currentGestureHash += Hash.GetHash(dir);
         spellSelector.CheckForSpell(currentGestureHash);
+        Debug.Log(currentGestureHash);
 
         // for now, log the direction + controller
-        Debug.Log("Controller: " + controllerToCheck + " Direction: " +  dir);
+        // Debug.Log("Controller: " + controllerToCheck + " Direction: " +  dir);
     }
 }
 

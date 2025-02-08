@@ -44,8 +44,17 @@ public class HandSpell : MonoBehaviour
         currentRune = currentSpell.GetRune();
 
         //currentRune = Instantiate(currentRune, transform.position, transform.rotation, locations[(int)currentSpell.GetSpawnPosition()].transform);
-        currentRune = Instantiate(currentRune, Vector3.zero, Quaternion.identity, locations[(int)currentSpell.GetSpawnPosition()].transform);
-        
-        
+        currentRune = Instantiate(currentRune, locations[(int)currentSpell.GetSpawnPosition()].transform);
+    }
+
+    private void Update()
+    {
+        float selectValue = selectButtonReference.action.ReadValue<float>();
+        // deletes the rune  if button is released
+        if (selectValue == 0f && currentRune != null)
+        {
+            Destroy(currentRune);
+            currentRune = null;
+        }
     }
 }

@@ -13,7 +13,7 @@ public class SpellStateMachine : MonoBehaviour
 
     // End of spell states
 
-    [SerializeField] public List<ISpellState> spellsList;
+    public List<ISpellState> spellsList;
     public Dictionary<int, ISpellState> spells;
 
     private ISpellState[] handStates;
@@ -51,12 +51,15 @@ public class SpellStateMachine : MonoBehaviour
 
 
     // some utils that the state machine requires
-    public void ChangeState(int spellHash, ControllerSide controller)
+    public bool ChangeState(int spellHash, ControllerSide controller)
     {
+        bool spellFound = true;
         if (!spells.ContainsKey(spellHash))
         {
             // no spell index
             spellHash = -1;
+
+            spellFound = false;
         }
         
         int controllerInd = (int)controller;
@@ -67,16 +70,12 @@ public class SpellStateMachine : MonoBehaviour
         //handStates.spa
 
         handSpells[controllerInd].ChangeSpell(handStates[controllerInd]);
+
+        return spellFound;
     }
 
     public int GetXORHashFromList(List<Direction> list)
     {
-        int hash = 0;
-        foreach (Direction direction in list)
-        {
-            hash ^= direction.GetHashCode();
-        }
-
-        return hash;
+        return Hash.GetHash(list);
     }
 }
