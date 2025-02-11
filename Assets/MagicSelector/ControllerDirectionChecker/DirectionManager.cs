@@ -18,11 +18,17 @@ public class DirectionManager : MonoBehaviour
     [SerializeField] public ControllerSide controllerToCheck = ControllerSide.NONE;
     [HideInInspector] public SpellSelect spellSelector;
     private int currentGestureHash;
+    private List<Direction> currentGesture;
 
+    private void Start()
+    {
+        currentGesture = new List<Direction>();
+    }
     private void OnEnable()
     {
         // new spell being drawn, reset hash
-        currentGestureHash = 0;
+        currentGestureHash = 1;
+        currentGesture.Clear();
     }
 
 
@@ -45,9 +51,10 @@ public class DirectionManager : MonoBehaviour
 
     public void AddDirectionToList(Direction dir)
     {
+        currentGesture.Add(dir);
         // incrementally update hash
-        currentGestureHash += Hash.GetHash(dir);
-        spellSelector.CheckForSpell(currentGestureHash);
+        // currentGestureHash *= Hash.GetHash(dir);
+        spellSelector.CheckForSpell(Hash.GetHash(currentGesture));
         Debug.Log(currentGestureHash);
 
         // for now, log the direction + controller

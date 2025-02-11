@@ -19,11 +19,6 @@ public class FireballRune
         ISpellState.stateMachine.spellsList.Add(this);
     }
 
-    public void OnCast()
-    {
-        
-    }
-
     override public void OnStateEnter()
     {
         base.OnStateEnter();

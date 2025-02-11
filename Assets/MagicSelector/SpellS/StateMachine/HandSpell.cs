@@ -16,13 +16,13 @@ public class HandSpell : MonoBehaviour
     [SerializeField] private ControllerSide controller;
     [SerializeField] private InputActionReference selectButtonReference;
 
-    public ISpellState currentSpell;
+    public SpellBase currentSpell;
     private GameObject currentRune = null;
     [Header("Put GameObjects where runes will spawn")]
     [SerializeField] private GameObject frontOfPalm;
     [SerializeField] private GameObject backOfPalm;
     [SerializeField] private GameObject fist;
-    private GameObject[] locations;
+    public static GameObject[] locations;
 
     private void Start()
     {
@@ -34,7 +34,7 @@ public class HandSpell : MonoBehaviour
     }
 
     // SPAWN SPELL HERE 
-    public void ChangeSpell(ISpellState spell)
+    public void ChangeSpell(SpellBase spell)
     {
         if (currentRune != null)
         {
@@ -44,7 +44,11 @@ public class HandSpell : MonoBehaviour
         currentRune = currentSpell.GetRune();
 
         //currentRune = Instantiate(currentRune, transform.position, transform.rotation, locations[(int)currentSpell.GetSpawnPosition()].transform);
-        currentRune = Instantiate(currentRune, locations[(int)currentSpell.GetSpawnPosition()].transform);
+        if (currentRune != null)
+        {
+            currentRune = Instantiate(currentRune, locations[(int)currentSpell.GetSpawnPosition()].transform);
+        }
+
     }
 
     private void Update()
@@ -53,6 +57,8 @@ public class HandSpell : MonoBehaviour
         // deletes the rune  if button is released
         if (selectValue == 0f && currentRune != null)
         {
+            // only 1 projectile can be fired at a time (2 is just one after the other very quickly) so I set the spawn for this projectile here
+            currentSpell.OnCast();
             Destroy(currentRune);
             currentRune = null;
         }

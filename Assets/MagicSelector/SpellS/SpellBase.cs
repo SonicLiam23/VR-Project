@@ -1,11 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.ShaderGraph.Drawing;
 using UnityEngine;
 
 public class SpellBase : MonoBehaviour
 {
+    private Transform projSpawn;
     [Header("Customise Spell")]
     [SerializeField] protected GameObject runeToSpawn;
+    [SerializeField] protected GameObject projectile;
     [SerializeField] private RuneSpawnPosition spawnPosition;
 
     protected int hash;
@@ -25,14 +28,30 @@ public class SpellBase : MonoBehaviour
 
     virtual public void OnStateEnter()
     {
-        runeToSpawn.SetActive(true);
+        if (runeToSpawn != null)
+        {
+            runeToSpawn.SetActive(true);
+        }
+        
 
     }
     virtual public void OnStateLeave()
     {
-        runeToSpawn.SetActive(false);
+        if (runeToSpawn != null)
+        {
+            runeToSpawn.SetActive(false);
+        }
+
     }
 
+    public void OnCast()
+    {
+        if (projectile != null)
+        {
+            projSpawn = HandSpell.locations[(int)spawnPosition].transform;
+            Instantiate(projectile, projSpawn.position, projSpawn.rotation);
+        }
+    }
 
     protected List<Direction> spellGesture = new();
     // Start is called before the first frame update

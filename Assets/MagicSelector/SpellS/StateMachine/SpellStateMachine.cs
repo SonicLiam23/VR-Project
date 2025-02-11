@@ -33,10 +33,6 @@ public class SpellStateMachine : MonoBehaviour
     {
         spells = new Dictionary<int, ISpellState>();
         handStates = new ISpellState[2];
- 
- 
-        
-        
 
         // each IState is set to add itself to the spellsList.
         // now we populate the dictionary
@@ -69,7 +65,7 @@ public class SpellStateMachine : MonoBehaviour
 
         //handStates.spa
 
-        handSpells[controllerInd].ChangeSpell(handStates[controllerInd]);
+        handSpells[controllerInd].ChangeSpell((SpellBase)handStates[controllerInd]);
 
         return spellFound;
     }
