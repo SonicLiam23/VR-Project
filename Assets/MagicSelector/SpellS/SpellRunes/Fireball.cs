@@ -6,26 +6,8 @@ using UnityEngine.Rendering;
 using UnityEngine.XR.Interaction.Toolkit;
 
 public class FireballRune
-    : SpellBase, ISpellState
+    : SpellBase
 {
-    override protected void Start()
-    {
-        //ADD GESTR
-        spellGesture.Add(Direction.RIGHT);
-        spellGesture.Add(Direction.LEFT);
-
-        base.Start();
-
-        ISpellState.stateMachine.spellsList.Add(this);
-    }
-
-    override public void OnStateEnter()
-    {
-        base.OnStateEnter();
-    }
-
-    override public void OnStateLeave()
-    {
-        base.OnStateLeave();
-    }
+    // Like shield, the basic "projectile fire" covers whats needed for this spell.
+    // so this needs no unique behaviour from the base
 }

@@ -13,7 +13,7 @@ using UnityEngine;
 public interface ISpellState
 {
     static public SpellStateMachine stateMachine;
-    public void OnStateEnter();
+    public void OnStateEnter(ControllerSide controller);
     public void OnStateLeave();
 
     public int GetSpellHash();

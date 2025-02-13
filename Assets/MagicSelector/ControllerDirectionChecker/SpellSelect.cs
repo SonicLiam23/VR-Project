@@ -17,7 +17,6 @@ public class SpellSelect : MonoBehaviour
     [SerializeField] private Transform cameraDirection;
     [SerializeField] private GameObject XROrigin;
     [SerializeField] private SpellStateMachine stateMachine;
-    private GameObject activeRune;
 
 
     private bool isWheelActive = false;
@@ -72,15 +71,11 @@ public class SpellSelect : MonoBehaviour
     private void SpawnSpellWheel()
     {
         spellSelectWheel.transform.position = transform.position;
-        spellSelectWheel.transform.rotation = cameraDirection.rotation;
-        spellSelectWheel.transform.rotation = Quaternion.Euler(-90, spellSelectWheel.transform.eulerAngles.y, spellSelectWheel.transform.eulerAngles.z);
 
-        // it makes sense that pulling "outwards" from chest" would perform the same spell on each hand
-        // this means that one side has to be mirrored. I will have to remember that on the left hand (my non-dominant hand)
-        // that Left = right and vice versa
-        if (spellSelectWheel.GetComponent<DirectionManager>().controllerToCheck == ControllerSide.LEFT)
-        {
-            spellSelectWheel.transform.Rotate(eulers: (Vector3.forward * 180), Space.Self);
-        }
+        //// it makes sense that pulling "outwards" from chest would perform the same spell on each hand
+        //// this means that one side has to be mirrored. I will have to remember that on the left hand (my non-dominant hand)
+        //// that Left = right and vice versa
+
+        spellSelectWheel.transform.LookAt(Camera.main.transform.position);
     }
 }

@@ -15,15 +15,11 @@ public enum ControllerSide
 public class DirectionManager : MonoBehaviour
 {
     // set in editor
-    [SerializeField] public ControllerSide controllerToCheck = ControllerSide.NONE;
+    public ControllerSide controllerToCheck = ControllerSide.NONE;
     [HideInInspector] public SpellSelect spellSelector;
     private int currentGestureHash;
-    private List<Direction> currentGesture;
+    private List<Direction> currentGesture = new();
 
-    private void Start()
-    {
-        currentGesture = new List<Direction>();
-    }
     private void OnEnable()
     {
         // new spell being drawn, reset hash

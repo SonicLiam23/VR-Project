@@ -5,30 +5,8 @@ using UnityEngine;
 using UnityEngine.Rendering;
 using UnityEngine.XR.Interaction.Toolkit;
 
-public class Shield : SpellBase, ISpellState
+public class Shield : SpellBase
 {
-    override protected void Start()
-    {
-        //ADD GESTR
-        spellGesture.Add(Direction.RIGHT_DOWN);
-
-        base.Start();
-
-        ISpellState.stateMachine.spellsList.Add(this);
-    }
-
-    public void OnCast()
-    {
-        
-    }
-
-    override public void OnStateEnter()
-    {
-        base.OnStateEnter();
-    }
-
-    override public void OnStateLeave()
-    {
-        base.OnStateLeave();
-    }
+    // all functionality for this spell is in the base script lol
+    // this script only exists to actually make the spell exist
 }

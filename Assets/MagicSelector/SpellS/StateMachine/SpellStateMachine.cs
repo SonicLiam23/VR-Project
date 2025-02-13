@@ -1,31 +1,24 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
-using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 // will contain 2 state machines, one for the left and one for the right hand, these will both be stored here as some spells will have interactions with each other, so storing them together helps
 public class SpellStateMachine : MonoBehaviour
 {
-    // Start of spell states
-    [SerializeField] private ISpellState shieldSpell;
-
-    // End of spell states
-
     public List<ISpellState> spellsList;
     public Dictionary<int, ISpellState> spells;
 
     private ISpellState[] handStates;
 
-    public HandSpell[] handSpells;
+    [SerializeField] private InputActionReference Left_selectButtonReference;
+    [SerializeField] private InputActionReference Right_selectButtonReference;
 
     private void Awake()
     {
         spellsList = new List<ISpellState>();
-        handSpells = new HandSpell[2];
         ISpellState.stateMachine = this;
-        HandSpell.spellStateMachine = this;
     }
 
     // Start is called before the first frame update
@@ -41,8 +34,25 @@ public class SpellStateMachine : MonoBehaviour
             spells.Add(s.GetSpellHash(), s);
         }
               // set both hands to no spell
-        handStates[0] = spells[-1];
-        handStates[1] = spells[-1];
+        handStates[(int)ControllerSide.LEFT] = spells[-1];
+        handStates[(int)ControllerSide.RIGHT] = spells[-1];
+    }
+
+    private void Update()
+    {
+        // if there is a spell on each hand and you let go of the grip, exit the current spell state and set it to no spell
+
+        float leftSelect = Left_selectButtonReference.action.ReadValue<float>();
+        if (handStates[(int)ControllerSide.LEFT] != spells[-1] && leftSelect == 0f)
+        {
+            ChangeState(-1, ControllerSide.LEFT);
+        }
+
+        float rightSelect = Right_selectButtonReference.action.ReadValue<float>();
+        if (handStates[(int)ControllerSide.RIGHT] != spells[-1] && rightSelect == 0f)
+        {
+            ChangeState(-1, ControllerSide.RIGHT);
+        }
     }
 
 
@@ -61,17 +71,10 @@ public class SpellStateMachine : MonoBehaviour
         int controllerInd = (int)controller;
         handStates[controllerInd].OnStateLeave();
         handStates[controllerInd] = spells[spellHash];
-        handStates[controllerInd].OnStateEnter();
+        handStates[controllerInd].OnStateEnter(controller);
 
         //handStates.spa
 
-        handSpells[controllerInd].ChangeSpell((SpellBase)handStates[controllerInd]);
-
         return spellFound;
-    }
-
-    public int GetXORHashFromList(List<Direction> list)
-    {
-        return Hash.GetHash(list);
     }
 }

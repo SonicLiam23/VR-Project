@@ -1,0 +1,5 @@
+These are the original, mostly unedited* scripts that I have not created, but edited in the project to fit my needs.
+
+* I will have added a comment on the top line saying where the edited version is stored.
+* I will change the class name to be [ClassName]_OG to prevent class name conflicts.
+* I have commented out anything that causes errors. With ERR appended to them.

@@ -2,16 +2,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class NoSpell : SpellBase, ISpellState
+public class NoSpell : SpellBase
 {
     public void OnCast()
     {
         
     }
 
-    override public void OnStateEnter()
+    override public void OnStateEnter(ControllerSide controller)
     {
-        base.OnStateEnter();
+        base.OnStateEnter(controller);
     }
       
     override public void OnStateLeave()
