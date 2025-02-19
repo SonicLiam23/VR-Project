@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using UnityEditor.ShaderGraph.Drawing;
 using UnityEngine;
 
-public class SpellBase : MonoBehaviour, ISpellState
+public abstract class SpellBase : MonoBehaviour, ISpellState
 {
-    private Transform projSpawn;
+    protected Transform projSpawn;
     [Header("Customise Spell")]
     [SerializeField] protected GameObject runePrefab;
     protected GameObject spawnedRune;
@@ -13,7 +13,7 @@ public class SpellBase : MonoBehaviour, ISpellState
     [SerializeField] private RuneSpawnPosition spawnPosition;
     [SerializeField] protected List<Direction> spellGesture = new();
     protected int hash;
-    static protected RunePositions runePositions = new();
+    protected ControllerSide controllerSide;
 
     public GameObject GetRune()
     {
@@ -26,6 +26,7 @@ public class SpellBase : MonoBehaviour, ISpellState
 
     virtual public void OnStateEnter(ControllerSide controller)
     {
+        controllerSide = controller;
         // remove any rune from a previous spell after a small delay (to show a "switch" between runes)
         if (spawnedRune != null)
         {
@@ -33,7 +34,7 @@ public class SpellBase : MonoBehaviour, ISpellState
         }
         if (runePrefab != null)
         {
-            spawnedRune = Instantiate(runePrefab, runePositions.GetRuneSpawnObject(controller, spawnPosition).transform);
+            spawnedRune = Instantiate(runePrefab, RunePositions.GetRuneSpawnPositionObject(controllerSide, spawnPosition).transform);
         }
         
     }
@@ -57,6 +58,8 @@ public class SpellBase : MonoBehaviour, ISpellState
             projSpawn = position;
             Instantiate(projectilePrefab, projSpawn.position, projSpawn.rotation);
         }
+
+        ISpellState.stateMachine.ChangeState(-1, controllerSide);
     }
 
     virtual public void OnCast()
@@ -70,7 +73,7 @@ public class SpellBase : MonoBehaviour, ISpellState
     virtual protected void Start()
     {
         hash = Hash.GetHash(spellGesture);
-        Debug.Log("ShieldHash: " + hash);
+        Debug.Log("Hash: " + hash);
         ISpellState.stateMachine.spellsList.Add(this);
     }
 

@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class NoSpell : SpellBase
 {
-    public void OnCast()
+    override public void OnCast()
     {
         
     }

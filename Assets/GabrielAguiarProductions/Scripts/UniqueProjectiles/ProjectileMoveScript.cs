@@ -10,8 +10,6 @@
 
 
 
-#pragma warning disable 0168 // variable declared but not used.
-#pragma warning disable 0219 // variable assigned but not used.
 #pragma warning disable 0414 // private field assigned but not used.
 
 using System.Collections;
@@ -24,7 +22,8 @@ public class ProjectileMoveScript : MonoBehaviour {
     public float speed;
 	[Tooltip("From 0% to 100%")]
 	public float accuracy;
-	public float fireRate;
+	[Tooltip("0 for no homing")]
+	public float homingAmount;
 	public GameObject muzzlePrefab;
 	public GameObject hitPrefab;
 	public List<GameObject> trails;
@@ -32,7 +31,7 @@ public class ProjectileMoveScript : MonoBehaviour {
 	private Vector3 offset;
 	private bool collided;
 	private Rigidbody rb;
-    private GameObject target;
+    private GameObject target = null;
 
 	void Start () {
         rb = GetComponent <Rigidbody> ();
@@ -73,13 +72,22 @@ public class ProjectileMoveScript : MonoBehaviour {
 
 	void FixedUpdate () 
 	{
-        if (speed != 0 && rb != null)
-			rb.position += (transform.forward + offset) * (speed * Time.deltaTime);   
+		if (speed != 0 && rb != null)
+		{
+			rb.position += (transform.forward + offset) * (speed * Time.deltaTime);
+		}
+
+		if (homingAmount > 0 && target != null)
+		{
+            Vector3 delta = target.transform.position - transform.position;
+            transform.forward = Vector3.Slerp(transform.forward, delta.normalized, homingAmount * Time.deltaTime); ;
+			transform.position += (speed * Time.deltaTime * transform.forward);
+        }
     }
 
 	void OnCollisionEnter (Collision co) 
 	{
-        if (co.gameObject.tag != "Bullet" && !collided)
+        if (co.gameObject.CompareTag("Bullet") != true && !collided)
         {
             collided = true;
 
@@ -125,7 +133,7 @@ public class ProjectileMoveScript : MonoBehaviour {
 	public IEnumerator DestroyParticle (float waitTime) {
 
 		if (transform.childCount > 0 && waitTime != 0) {
-			List<Transform> tList = new List<Transform> ();
+			List<Transform> tList = new();
 
 			foreach (Transform t in transform.GetChild(0).transform) {
 				tList.Add (t);

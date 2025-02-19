@@ -29351,7 +29351,7 @@ GameObject:
   - component: {fileID: 7944891749557590647}
   - component: {fileID: 6712656591972158728}
   m_Layer: 0
-  m_Name: BurstFire_Rune
+  m_Name: Magic (4)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

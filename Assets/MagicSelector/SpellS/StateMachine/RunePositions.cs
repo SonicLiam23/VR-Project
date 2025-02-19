@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.ComponentModel;
 using Unity.VisualScripting;
 using Unity.VisualScripting.FullSerializer;
 using UnityEngine;
@@ -33,7 +34,7 @@ public class RunePositions : MonoBehaviour
         runePositions[(int)ControllerSide.RIGHT, (int)RuneSpawnPosition.IN_FRONT_OF_FIST] = R_fist;
     }
 
-    public GameObject GetRuneSpawnObject(ControllerSide controller, RuneSpawnPosition spawnPosition)
+    static public GameObject GetRuneSpawnPositionObject(ControllerSide controller, RuneSpawnPosition spawnPosition)
     {
         return runePositions[(int)controller, (int)spawnPosition];
     }
