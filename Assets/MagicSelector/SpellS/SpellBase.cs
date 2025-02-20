@@ -9,7 +9,7 @@ public abstract class SpellBase : MonoBehaviour, ISpellState
     [Header("Customise Spell")]
     [SerializeField] protected GameObject runePrefab;
     protected GameObject spawnedRune;
-    [SerializeField] protected GameObject projectilePrefab;
+    [SerializeField] protected SpellPool projectilePool;
     [SerializeField] private RuneSpawnPosition spawnPosition;
     [SerializeField] protected List<Direction> spellGesture = new();
     protected int hash;
@@ -53,13 +53,13 @@ public abstract class SpellBase : MonoBehaviour, ISpellState
     {
         // default cast. Release button -> fire projectile -> leave this spell state. 
         // can be overriden to create unique spell/firing effects for each spell
-        if (projectilePrefab != null)
+        if (projectilePool != null)
         {
             projSpawn = position;
-            Instantiate(projectilePrefab, projSpawn.position, projSpawn.rotation);
+            projectilePool.GetObject(position);
         }
 
-        ISpellState.stateMachine.ChangeState(-1, controllerSide);
+        //ISpellState.stateMachine.ChangeState(-1, controllerSide);
     }
 
     virtual public void OnCast()
@@ -73,7 +73,6 @@ public abstract class SpellBase : MonoBehaviour, ISpellState
     virtual protected void Start()
     {
         hash = Hash.GetHash(spellGesture);
-        Debug.Log("Hash: " + hash);
         ISpellState.stateMachine.spellsList.Add(this);
     }
 

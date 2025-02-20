@@ -15,7 +15,6 @@ public class Hash
         {
             hash = hash * mult + (int)dir;
             mult += 2;
-            Debug.Log(hash);
         }
 
         return hash;

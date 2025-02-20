@@ -31,7 +31,7 @@ public class BurstFire
         for (int i = 0; i < amt; i++)
         {
             projSpawn = spawnObjectPos.transform;
-            GameObject spawnedProj = Instantiate(projectilePrefab, projSpawn.position, projSpawn.rotation);
+            GameObject spawnedProj = projectilePool.GetObject(projSpawn);
             StartCoroutine(HomeInAfterDelay(homingDelay, closestEnemy, spawnedProj));
             yield return new WaitForSeconds(delay);
         }
@@ -42,19 +42,18 @@ public class BurstFire
         yield return new WaitForSeconds(delay);
 
 
+        if (projectile != null)
+        {
 
-        if (target != null)
-        {
-            projectile.GetComponent<ProjectileMoveScript>().SetTarget(target);
-        }
-        else
-        {
-            // first target died, get a new one :D
-            if (projectile != null)
+            if (target != null)
             {
+                projectile.GetComponent<ProjectileMoveScript>().SetTarget(target);
+            }
+            else
+            {
+                // first target died, get a new one :D
                 projectile.GetComponent<ProjectileMoveScript>().SetTarget(GetClosestEnemy());
             }
-        
         }
     }
 

@@ -2033,6 +2033,53 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 621120104}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &664352168
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 664352169}
+  - component: {fileID: 664352170}
+  m_Layer: 0
+  m_Name: Burstfire Homing
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &664352169
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 664352168}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 924017777}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &664352170
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 664352168}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 350cae5602bce2a4c91ab92e7e0c101b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pooledProjectile: {fileID: 1962781636682716, guid: 9bb040fe3243da643857829e4cc68185,
+    type: 3}
+  projectilePoolSize: 8
 --- !u!1001 &671024005
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3130,7 +3177,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   runePrefab: {fileID: 0}
-  projectilePrefab: {fileID: 0}
+  projectilePool: {fileID: 0}
   spawnPosition: 1
   spellGesture: 
 --- !u!114 &887775633
@@ -3147,7 +3194,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   runePrefab: {fileID: 6476058009666582483, guid: ce6bd140cad90cc4598d7e9453555f1f,
     type: 3}
-  projectilePrefab: {fileID: 0}
+  projectilePool: {fileID: 0}
   spawnPosition: 1
   spellGesture: a71d0000
 --- !u!114 &887775634
@@ -3164,8 +3211,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   runePrefab: {fileID: 3843131462855117224, guid: f719624eb30e231469bf92da35087ae6,
     type: 3}
-  projectilePrefab: {fileID: 1929353877246504, guid: f4e3c1bcc5ad490428af0e32171a9cf2,
-    type: 3}
+  projectilePool: {fileID: 1401462930}
   spawnPosition: 2
   spellGesture: af1200003f230000
 --- !u!114 &887775635
@@ -3182,8 +3228,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   runePrefab: {fileID: 5852065508080196608, guid: 59f067b9b8b9f8e4c90fb3aee4816883,
     type: 3}
-  projectilePrefab: {fileID: 1962781636682716, guid: 9bb040fe3243da643857829e4cc68185,
-    type: 3}
+  projectilePool: {fileID: 664352170}
   spawnPosition: 2
   spellGesture: 35030000ad000000a71d0000
   homingDelay: 0.3
@@ -3262,7 +3307,7 @@ GameObject:
   m_Component:
   - component: {fileID: 924017777}
   m_Layer: 0
-  m_Name: ====SPELLS POOL====
+  m_Name: ====SPELL POOLS====
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3280,7 +3325,9 @@ Transform:
   m_LocalPosition: {x: -0.3958879, y: 3.975615, z: -4.530307}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 664352169}
+  - {fileID: 1401462929}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &960339667
@@ -5111,6 +5158,52 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1369137498}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1401462928
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1401462929}
+  - component: {fileID: 1401462930}
+  m_Layer: 0
+  m_Name: Fireball
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1401462929
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1401462928}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 924017777}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1401462930
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1401462928}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 350cae5602bce2a4c91ab92e7e0c101b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pooledProjectile: {fileID: 0}
+  projectilePoolSize: 0
 --- !u!1001 &1434796667
 PrefabInstance:
   m_ObjectHideFlags: 0

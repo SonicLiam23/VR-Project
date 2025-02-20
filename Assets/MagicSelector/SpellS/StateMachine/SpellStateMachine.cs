@@ -73,8 +73,6 @@ public class SpellStateMachine : MonoBehaviour
         handStates[controllerInd] = spells[spellHash];
         handStates[controllerInd].OnStateEnter(controller);
 
-        //handStates.spa
-
         return spellFound;
     }
 }

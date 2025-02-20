@@ -33,7 +33,13 @@ public class ProjectileMoveScript : MonoBehaviour {
 	private Rigidbody rb;
     private GameObject target = null;
 
-	void Start () {
+    private void OnDisable()
+    {
+        collided = false;
+        target = null;
+    }
+
+    void OnEnable () {
         rb = GetComponent <Rigidbody> ();
 
 		//used to create a radius for the accuracy and have a very unique randomness
@@ -105,7 +111,7 @@ public class ProjectileMoveScript : MonoBehaviour {
                 }
             }
 
-            speed = 0;
+            //speed = 0;
             GetComponent<Rigidbody>().isKinematic = true;
 
             ContactPoint contact = co.contacts[0];
@@ -149,7 +155,8 @@ public class ProjectileMoveScript : MonoBehaviour {
 		}
 		
 		yield return new WaitForSeconds (waitTime);
-		Destroy (gameObject);
+		// DISABLE IN FUTURE
+		gameObject.SetActive(false);
 	}
 
     public void SetTarget (GameObject trg)

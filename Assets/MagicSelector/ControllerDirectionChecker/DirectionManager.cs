@@ -51,7 +51,6 @@ public class DirectionManager : MonoBehaviour
         // incrementally update hash
         // currentGestureHash *= Hash.GetHash(dir);
         spellSelector.CheckForSpell(Hash.GetHash(currentGesture));
-        Debug.Log(currentGestureHash);
 
         // for now, log the direction + controller
         // Debug.Log("Controller: " + controllerToCheck + " Direction: " +  dir);
