@@ -9,9 +9,10 @@ public abstract class SpellBase : MonoBehaviour, ISpellState
     [Header("Customise Spell")]
     [SerializeField] protected GameObject runePrefab;
     protected GameObject spawnedRune;
-    [SerializeField] protected SpellPool projectilePool;
+    [SerializeField] protected ObjectPool projectilePool;
     [SerializeField] private RuneSpawnPosition spawnPosition;
     [SerializeField] protected List<Direction> spellGesture = new();
+
     protected int hash;
     protected ControllerSide controllerSide;
 

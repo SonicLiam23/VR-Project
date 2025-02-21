@@ -6,7 +6,7 @@ public class EnemyProjectile : MonoBehaviour
 {
 
     [SerializeField] private float delay;
-    [SerializeField] private GameObject projectile;
+    [SerializeField] private ObjectPool projectilePool;
     [SerializeField] private Transform spawnPos;
 
     private void Start()
@@ -18,7 +18,7 @@ public class EnemyProjectile : MonoBehaviour
     {
         while (true)
         {
-            Instantiate(projectile, spawnPos.position, spawnPos.rotation);
+            projectilePool.GetObject(spawnPos);
             yield return new WaitForSeconds(delay);
         }
     }

@@ -14841,7 +14841,7 @@ TrailRenderer:
     generateLightingData: 0
   m_MinVertexDistance: 0.1
   m_MaskInteraction: 0
-  m_Autodestruct: 1
+  m_Autodestruct: 0
   m_Emitting: 1
   m_ApplyActiveColorSpace: 0
 --- !u!1 &1408694432389334
@@ -14986,7 +14986,7 @@ TrailRenderer:
     generateLightingData: 0
   m_MinVertexDistance: 0.1
   m_MaskInteraction: 0
-  m_Autodestruct: 1
+  m_Autodestruct: 0
   m_Emitting: 1
   m_ApplyActiveColorSpace: 0
 --- !u!1 &1454288802810436
@@ -19974,7 +19974,7 @@ TrailRenderer:
     generateLightingData: 0
   m_MinVertexDistance: 0.1
   m_MaskInteraction: 0
-  m_Autodestruct: 1
+  m_Autodestruct: 0
   m_Emitting: 1
   m_ApplyActiveColorSpace: 0
 --- !u!1 &1962781636682716
@@ -20034,15 +20034,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 25
   accuracy: 100
+  homingAmount: 0
   muzzlePrefab: {fileID: 1375766534964744, guid: ccf0b4dfc2a910946a8d19dff37921ae,
     type: 3}
   hitPrefab: {fileID: 1065368290883924, guid: dca5ec903a5bfaf42aa85747040eaa05, type: 3}
-  trails:
-  - {fileID: 1408694432389334}
-  - {fileID: 1372258391445912}
-  - {fileID: 1887299581612334}
-  - {fileID: 1154045059572658}
-  - {fileID: 1454288802810436}
 --- !u!65 &65195282619077832
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -20135,3 +20130,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   damage: 0
+  AOERadius: 0

@@ -26,52 +26,121 @@ public class ProjectileMoveScript : MonoBehaviour {
 	public float homingAmount;
 	public GameObject muzzlePrefab;
 	public GameObject hitPrefab;
-	public List<GameObject> trails;
+    [Tooltip("Delete the projectile after seconds. 0 for no delete")]
+    [SerializeField] private float autoDeleteAfter;
 
-	private Vector3 offset;
-	private bool collided;
+    private Vector3 offset;
 	private Rigidbody rb;
     private GameObject target = null;
+	private bool initialized = false;
+
+	// each projectile will have its own Muzzle and Hit particle objects assigned to them
+	static private GameObject particlesPool;
+	private GameObject muzzleVFXParent;
+	private ParticleSystem[] muzzleVFXComponents;
+	private GameObject hitVFXParent;
+	private ParticleSystem[] hitVFXComponents;
+    private TrailRenderer[] trails;
 
     private void OnDisable()
     {
-        collided = false;
         target = null;
-    }
+		rb.isKinematic = false;
+	}
 
-    void OnEnable () {
-        rb = GetComponent <Rigidbody> ();
+	// upon start, the order is as follows awake -> OnEnable of all objects. Then it runs start on all object.
+	private void Awake()
+	{
+		if (particlesPool == null)
+		{
+			particlesPool = GameObject.Find("ParticlesPool");
+		}
 
-		//used to create a radius for the accuracy and have a very unique randomness
-		if (accuracy != 100) {
-			accuracy = 1 - (accuracy / 100);
-
-			for (int i = 0; i < 2; i++) {
-				var val = 1 * Random.Range (-accuracy, accuracy);
-				var index = Random.Range (0, 2);
-				if (i == 0) {
-					if (index == 0)
-						offset = new Vector3 (0, -val, 0);
-					else
-						offset = new Vector3 (0, val, 0);
-				} else {
-					if (index == 0)
-						offset = new Vector3 (0, offset.y, -val);
-					else
-						offset = new Vector3 (0, offset.y, val);
-				}
+		if (muzzlePrefab != null)
+		{
+			muzzleVFXParent = Instantiate(muzzlePrefab, particlesPool.transform);
+			int children = muzzleVFXParent.transform.childCount;
+			if (children > 0)
+			{
+				muzzleVFXComponents = muzzleVFXParent.GetComponentsInChildren<ParticleSystem>(true);
 			}
 		}
+
+
+		if (hitPrefab != null)
+		{
+			hitVFXParent = Instantiate(hitPrefab, particlesPool.transform);
+			int children = hitVFXParent.transform.childCount;
+			if (children > 0)
+			{
+				hitVFXComponents = hitVFXParent.GetComponentsInChildren<ParticleSystem>(true);
+			}
+		}
+
+		trails = GetComponentsInChildren<TrailRenderer>(true);
+		// this one setting caused me HOURS of pain, so this is to make bloody sure it's off
+		foreach (TrailRenderer trail in trails)
+		{
+			trail.autodestruct = false;
+		}
+}
+
+private void Start()
+    {
+		// run once at the start AFTER OnEnable for the first time
+		initialized = true;
+        rb = GetComponent<Rigidbody>();
+        gameObject.SetActive(false);
+    }
+    void OnEnable () {
+		if (initialized)
+		{
+			//used to create a radius for the accuracy and have a very unique randomness
+			if (accuracy != 100) {
+				var accuracyPercent = 1 - (accuracy / 100);
+
+				for (int i = 0; i < 2; i++) {
+					var val = 1 * Random.Range (-accuracyPercent, accuracyPercent);
+					var index = Random.Range (0, 2);
+					if (i == 0) 
+					{
+						if (index == 0)
+							offset = new Vector3 (0, -val, 0);
+						else
+							offset = new Vector3 (0, val, 0);
+					} 
+					else 
+					{
+						if (index == 0)
+							offset = new Vector3 (0, offset.y, -val);
+						else
+							offset = new Vector3 (0, offset.y, val);
+					}
+				}
+			}
 			
-		if (muzzlePrefab != null) {
-			var muzzleVFX = Instantiate (muzzlePrefab, transform.position, Quaternion.identity);
-			muzzleVFX.transform.forward = gameObject.transform.forward + offset;
-			var ps = muzzleVFX.GetComponent<ParticleSystem>();
-			if (ps != null)
-				Destroy (muzzleVFX, ps.main.duration);
-			else {
-				var psChild = muzzleVFX.transform.GetChild(0).GetComponent<ParticleSystem>();
-				Destroy (muzzleVFX, psChild.main.duration);
+			if (muzzleVFXParent != null) 
+			{
+				muzzleVFXParent.transform.position = transform.position;
+				muzzleVFXParent.transform.forward = gameObject.transform.forward + offset;
+                foreach (ParticleSystem ps in muzzleVFXComponents)
+                {
+					ps.Clear();
+                    ps.time = 0f;
+                    ps.Play();
+
+                }
+            }
+
+			// clear the previous projectile trail renderer
+			foreach (TrailRenderer tr in  trails)
+			{ 
+				tr.Clear(); 
+			}
+
+			if (autoDeleteAfter > 0)
+			{
+				StartCoroutine(PoolParticle(autoDeleteAfter));
 			}
 		}
 	}
@@ -85,78 +154,40 @@ public class ProjectileMoveScript : MonoBehaviour {
 
 		if (homingAmount > 0 && target != null)
 		{
-            Vector3 delta = target.transform.position - transform.position;
-            transform.forward = Vector3.Slerp(transform.forward, delta.normalized, homingAmount * Time.deltaTime); ;
-			transform.position += (speed * Time.deltaTime * transform.forward);
+			if (target.activeInHierarchy)
+			{
+				Vector3 delta = target.transform.position - transform.position;
+				transform.forward = Vector3.Slerp(transform.forward, delta.normalized, homingAmount * Time.deltaTime); ;
+				transform.position += (speed * Time.deltaTime * transform.forward);
+			}
         }
     }
 
 	void OnCollisionEnter (Collision co) 
 	{
-        if (co.gameObject.CompareTag("Bullet") != true && !collided)
+        ContactPoint contact = co.contacts[0];
+        Quaternion rot = Quaternion.FromToRotation(Vector3.up, contact.normal);
+        Vector3 pos = contact.point;
+
+        if (hitPrefab != null)
         {
-            collided = true;
-
-            if (trails.Count > 0)
+            hitVFXParent.transform.SetPositionAndRotation(pos, rot);
+            foreach (ParticleSystem ps in hitVFXComponents)
             {
-                for (int i = 0; i < trails.Count; i++)
-                {
-                    trails[i].transform.parent = null;
-                    var ps = trails[i].GetComponent<ParticleSystem>();
-                    if (ps != null)
-                    {
-                        ps.Stop();
-                        Destroy(ps.gameObject, ps.main.duration + ps.main.startLifetime.constantMax);
-                    }
-                }
+                ps.Clear();
+                ps.time = 0f;
+                ps.Play();
             }
-
-            //speed = 0;
-            GetComponent<Rigidbody>().isKinematic = true;
-
-            ContactPoint contact = co.contacts[0];
-            Quaternion rot = Quaternion.FromToRotation(Vector3.up, contact.normal);
-            Vector3 pos = contact.point;
-
-            if (hitPrefab != null)
-            {
-                var hitVFX = Instantiate(hitPrefab, pos, rot) as GameObject;
-
-                var ps = hitVFX.GetComponent<ParticleSystem>();
-                if (ps == null)
-                {
-                    var psChild = hitVFX.transform.GetChild(0).GetComponent<ParticleSystem>();
-                    Destroy(hitVFX, psChild.main.duration);
-                }
-                else
-                    Destroy(hitVFX, ps.main.duration);
-            }
-
-            StartCoroutine(DestroyParticle(0f));
         }
+
+        StartCoroutine(PoolParticle(0f));
 	}
 
-	public IEnumerator DestroyParticle (float waitTime) {
+	public IEnumerator PoolParticle (float waitTime) {
 
-		if (transform.childCount > 0 && waitTime != 0) {
-			List<Transform> tList = new();
-
-			foreach (Transform t in transform.GetChild(0).transform) {
-				tList.Add (t);
-			}		
-
-			while (transform.GetChild(0).localScale.x > 0) {
-				yield return new WaitForSeconds (0.01f);
-				transform.GetChild(0).localScale -= new Vector3 (0.1f, 0.1f, 0.1f);
-				for (int i = 0; i < tList.Count; i++) {
-					tList[i].localScale -= new Vector3 (0.1f, 0.1f, 0.1f);
-				}
-			}
-		}
-		
 		yield return new WaitForSeconds (waitTime);
-		// DISABLE IN FUTURE
 		gameObject.SetActive(false);
+		StopAllCoroutines();
 	}
 
     public void SetTarget (GameObject trg)
