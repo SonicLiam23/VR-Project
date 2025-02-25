@@ -13,7 +13,7 @@ public class BurstFire
     [SerializeField] private float firingDelay;
     public override void OnCast(Transform position)
     {
-        StartCoroutine(SpawnProjectiles(projectileAmount, firingDelay, position.gameObject));
+        StartCoroutine(SpawnProjectiles(position.gameObject));
     }
 
     public override void OnStateLeave()
@@ -23,23 +23,30 @@ public class BurstFire
         {
             Destroy(spawnedRune, firingDelay * (projectileAmount + 1));
         }
-    }
-
-    private IEnumerator SpawnProjectiles(int amt, float delay, GameObject spawnObjectPos)
-    {
-        GameObject closestEnemy = GetClosestEnemy();
-        for (int i = 0; i < amt; i++)
+        // if the spell actually costs mana and mana isnt already being regenerated from a previous spell
+        if (manaCost > 0 && !ISpellState.stateMachine.manaSystem.isRegeneratingMana)
         {
-            projSpawn = spawnObjectPos.transform;
-            GameObject spawnedProj = projectilePool.GetObject(projSpawn);
-            StartCoroutine(HomeInAfterDelay(homingDelay, closestEnemy, spawnedProj));
-            yield return new WaitForSeconds(delay);
+            StartCoroutine(RegenManaAfterComplete());
         }
     }
 
-    private IEnumerator HomeInAfterDelay(float delay, GameObject target, GameObject projectile)
+    private IEnumerator SpawnProjectiles(GameObject spawnObjectPos)
     {
-        yield return new WaitForSeconds(delay);
+        GameObject closestEnemy = GetClosestEnemy();
+        int manaCostPerProj = manaCost / projectileAmount;
+        for (int i = 0; i < projectileAmount; i++)
+        {
+            projSpawn = spawnObjectPos.transform;
+            GameObject spawnedProj = projectilePool.GetObject(projSpawn);
+            ISpellState.stateMachine.manaSystem.SpendMana(manaCostPerProj);
+            StartCoroutine(HomeInAfterDelay(closestEnemy, spawnedProj));
+            yield return new WaitForSeconds(firingDelay);
+        }
+    }
+
+    private IEnumerator HomeInAfterDelay(GameObject target, GameObject projectile)
+    {
+        yield return new WaitForSeconds(homingDelay);
 
 
         if (projectile != null)
@@ -73,5 +80,11 @@ public class BurstFire
         }
 
         return closestEnemy;
+    }
+
+    IEnumerator RegenManaAfterComplete()
+    {
+        yield return new WaitForSeconds(firingDelay * (projectileAmount + 1));
+        StartCoroutine(ISpellState.stateMachine.manaSystem.RegenMana());
     }
 }

@@ -4,8 +4,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
+// start needs to be run after all spell base starts (so theyre added to the spellsList)
+[DefaultExecutionOrder(1)]
 // will contain 2 state machines, one for the left and one for the right hand, these will both be stored here as some spells will have interactions with each other, so storing them together helps
-public class SpellStateMachine : MonoBehaviour
+public class PlayerSpellStateMachine : MonoBehaviour
 {
     public List<ISpellState> spellsList;
     public Dictionary<int, ISpellState> spells;
@@ -14,6 +16,7 @@ public class SpellStateMachine : MonoBehaviour
 
     [SerializeField] private InputActionReference Left_selectButtonReference;
     [SerializeField] private InputActionReference Right_selectButtonReference;
+    [SerializeField] public ManaComponent manaSystem;
 
     private void Awake()
     {
@@ -60,15 +63,18 @@ public class SpellStateMachine : MonoBehaviour
     public bool ChangeState(int spellHash, ControllerSide controller)
     {
         bool spellFound = true;
-        if (!spells.ContainsKey(spellHash))
+        int controllerInd = (int)controller;
+
+        if (!spells.ContainsKey(spellHash) || spells[spellHash].GetManaCost() > manaSystem.mana)
         {
-            // no spell index
+            // no spell index, if you try to draw another spell with one equiped (which should be impossible, but gotta account for everything), remove the spell
+
+            // OR if a spell has been found, check there is enough mana
             spellHash = -1;
 
             spellFound = false;
         }
-        
-        int controllerInd = (int)controller;
+
         handStates[controllerInd].OnStateLeave();
         handStates[controllerInd] = spells[spellHash];
         handStates[controllerInd].OnStateEnter(controller);

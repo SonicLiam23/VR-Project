@@ -16,6 +16,8 @@ public abstract class SpellBase : MonoBehaviour, ISpellState
     protected int hash;
     protected ControllerSide controllerSide;
 
+    [SerializeField] protected int manaCost;
+
     public GameObject GetRune()
     {
         return runePrefab;
@@ -43,11 +45,15 @@ public abstract class SpellBase : MonoBehaviour, ISpellState
     {
         // runs when a spell is selected and you let go of the grip, so by default, cast spell here
         OnCast();
-        if (runePrefab != null)
+        if (spawnedRune != null)
         {
             Destroy(spawnedRune);
         }
-
+        // if the spell actually costs mana and mana isnt already being regenerated from a previous spell
+        if (manaCost > 0 && !ISpellState.stateMachine.manaSystem.isRegeneratingMana)
+        {
+            StartCoroutine(ISpellState.stateMachine.manaSystem.RegenMana());
+        }
     }
 
     virtual public void OnCast(Transform position)
@@ -59,14 +65,18 @@ public abstract class SpellBase : MonoBehaviour, ISpellState
             projSpawn = position;
             projectilePool.GetObject(position);
         }
-
-        //ISpellState.stateMachine.ChangeState(-1, controllerSide);
+        ISpellState.stateMachine.manaSystem.SpendMana(manaCost);
     }
 
     virtual public void OnCast()
     {
         // cast spell, but default it to the runes current position
         OnCast(spawnedRune.transform);
+    }
+
+    public int GetManaCost()
+    {
+        return manaCost;
     }
 
     
@@ -82,4 +92,5 @@ public abstract class SpellBase : MonoBehaviour, ISpellState
     {
         
     }
+
 }

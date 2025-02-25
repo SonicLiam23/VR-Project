@@ -12,9 +12,11 @@ using UnityEngine;
 
 public interface ISpellState
 {
-    static public SpellStateMachine stateMachine;
+    static public PlayerSpellStateMachine stateMachine;
+    
     public void OnStateEnter(ControllerSide controller);
     public void OnStateLeave();
+    public int GetManaCost();
 
     public int GetSpellHash();
 }

@@ -16,7 +16,7 @@ public class SpellSelect : MonoBehaviour
     [SerializeField] private GameObject spellSelectWheel;
     [SerializeField] private Transform cameraDirection;
     [SerializeField] private GameObject XROrigin;
-    [SerializeField] private SpellStateMachine stateMachine;
+    [SerializeField] private PlayerSpellStateMachine stateMachine;
 
 
     private bool isWheelActive = false;
