@@ -4862,7 +4862,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &4550230064872828
 Transform:
   m_ObjectHideFlags: 0
@@ -4901,6 +4901,7 @@ MonoBehaviour:
   muzzlePrefab: {fileID: 1249093948453542, guid: 2b51c5a6efd11724d807f891f494c6fd,
     type: 3}
   hitPrefab: {fileID: 1875137826284996, guid: c8469f280b9060d46b334dfa8974ebcf, type: 3}
+  autoDeleteAfter: 0
 --- !u!54 &54016919864105464
 Rigidbody:
   m_ObjectHideFlags: 0

@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
@@ -37,7 +38,8 @@ public class BurstFire
         for (int i = 0; i < projectileAmount; i++)
         {
             projSpawn = spawnObjectPos.transform;
-            GameObject spawnedProj = projectilePool.GetObject(projSpawn);
+            GameObject spawnedProj = projectilePool.GetObject();
+            spawnedProj.transform.SetPositionAndRotation(spawnObjectPos.transform.position, spawnObjectPos.transform.rotation);
             ISpellState.stateMachine.manaSystem.SpendMana(manaCostPerProj);
             StartCoroutine(HomeInAfterDelay(closestEnemy, spawnedProj));
             yield return new WaitForSeconds(firingDelay);

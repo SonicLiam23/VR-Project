@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using Unity.VisualScripting;
 using Unity.XR.CoreUtils;
 using UnityEngine;
@@ -8,42 +9,40 @@ using UnityEngine;
 public class ObjectPool : MonoBehaviour
 {
     [SerializeField] private GameObject pooledProjectile;
-    [SerializeField] private int projectilePoolSize;
+    [SerializeField] private int poolStartSize;
 
     // Start is called before the first frame update
     void Start()
     {
-        for (int i = 0; i < projectilePoolSize; i++)
+        for (int i = 0; i < poolStartSize; i++)
         {
-            Instantiate(pooledProjectile, this.transform);
-
+            GameObject pooledProj = Instantiate(pooledProjectile, this.transform);
+            pooledProj.SetActive(false);
         }
+
     }
 
-    public GameObject GetObject(Transform spawnTransform, bool instantiateIfUnavailable = false)
+    public GameObject GetObject(bool instantiateIfUnavailable = false)
     {
-        int children = transform.childCount;
-        GameObject pooledObject = null;
-
-        for (int i = 0; i < children; i++)
+        
+        foreach (Transform child in transform.GetComponentInChildren<Transform>(true)) 
         {
-            pooledObject = transform.GetChild(i).gameObject;
-            if (!pooledObject.activeSelf)
+            if (child.gameObject.activeInHierarchy)
             {
-                pooledObject.transform.SetPositionAndRotation(spawnTransform.position, spawnTransform.rotation);
-                pooledObject.SetActive(true);
-                return pooledObject;
+                continue;
             }
+            StartCoroutine(DelayBeforEnable(child.gameObject));
+            return child.gameObject;
         }
 
         if (instantiateIfUnavailable)
         {
-            pooledObject = Instantiate(pooledProjectile, this.transform);
-            pooledObject.transform.SetPositionAndRotation(spawnTransform.position, spawnTransform.rotation);
+            GameObject pooledObject = Instantiate(pooledProjectile, this.transform);
+            StartCoroutine(DelayBeforEnable(pooledObject));
             return pooledObject;
         }
 
-        return pooledObject;
+        return null;
     }
 
     public void ReturnObject(GameObject obj)
@@ -59,4 +58,12 @@ public class ObjectPool : MonoBehaviour
     {
         return GetComponentsInChildren<GameObject>(!includeEnabled).ToList();
     }
+
+    private IEnumerator DelayBeforEnable(GameObject toEnable)
+    {
+        yield return new WaitForEndOfFrame();
+        toEnable.SetActive(true);
+
+    }
+
 }

@@ -27,11 +27,6 @@ public class ManaComponent : MonoBehaviour
         _mana -= amt;
     }
 
-    private void Update()
-    {
-        Debug.Log(isRegeneratingMana);
-    }
-
     public IEnumerator RegenMana()
     {
         isRegeneratingMana = true;

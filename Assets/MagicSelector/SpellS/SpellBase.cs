@@ -63,7 +63,8 @@ public abstract class SpellBase : MonoBehaviour, ISpellState
         if (projectilePool != null)
         {
             projSpawn = position;
-            projectilePool.GetObject(position);
+            GameObject firedProj = projectilePool.GetObject(true);
+            firedProj.transform.SetPositionAndRotation(projSpawn.position, projSpawn.rotation);
         }
         ISpellState.stateMachine.manaSystem.SpendMana(manaCost);
     }

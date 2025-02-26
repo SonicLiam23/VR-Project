@@ -14685,7 +14685,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &4910982213563986
 Transform:
   m_ObjectHideFlags: 0
@@ -14723,14 +14723,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 20
   accuracy: 95
+  homingAmount: 0
   muzzlePrefab: {fileID: 1549331409727172, guid: fe95cc8164149164bbcfda2abdc7aff1,
     type: 3}
   hitPrefab: {fileID: 1815465942245314, guid: 2cba8f08683097b498117361c2776834, type: 3}
-  trails:
-  - {fileID: 1413198850820390}
-  - {fileID: 1018841047267374}
-  - {fileID: 1839623307621702}
-  - {fileID: 1881935640314446}
+  autoDeleteAfter: 0
 --- !u!65 &65051746347316348
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -14823,6 +14820,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 35e0706f69be74a48a69cb624fc13aa6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  damage: 0
+  AOERadius: 0
 --- !u!1 &1650697837746086
 GameObject:
   m_ObjectHideFlags: 0

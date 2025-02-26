@@ -17,9 +17,10 @@ public class EnemyProjectile : MonoBehaviour
     private IEnumerator StartShooting()
     {
         while (true)
-        {
-            projectilePool.GetObject(spawnPos);
+        { 
             yield return new WaitForSeconds(delay);
+            projectilePool.GetObject().transform.SetPositionAndRotation(spawnPos.position, spawnPos.rotation);
+
         }
     }
 }

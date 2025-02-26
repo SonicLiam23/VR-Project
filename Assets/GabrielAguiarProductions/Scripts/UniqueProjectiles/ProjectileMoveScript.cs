@@ -15,6 +15,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static UnityEngine.Rendering.DebugUI.Table;
 
 public class ProjectileMoveScript : MonoBehaviour {
 
@@ -65,9 +66,9 @@ public class ProjectileMoveScript : MonoBehaviour {
 				muzzleVFXComponents = muzzleVFXParent.GetComponentsInChildren<ParticleSystem>(true);
 			}
 		}
+        rb = GetComponent<Rigidbody>();
 
-
-		if (hitPrefab != null)
+        if (hitPrefab != null)
 		{
 			hitVFXParent = Instantiate(hitPrefab, particlesPool.transform);
 			int children = hitVFXParent.transform.childCount;
@@ -83,65 +84,56 @@ public class ProjectileMoveScript : MonoBehaviour {
 		{
 			trail.autodestruct = false;
 		}
-}
-
-private void Start()
-    {
-		// run once at the start AFTER OnEnable for the first time
-		initialized = true;
-        rb = GetComponent<Rigidbody>();
-        gameObject.SetActive(false);
-    }
+	}
+	
     void OnEnable () {
-		if (initialized)
-		{
-			//used to create a radius for the accuracy and have a very unique randomness
-			if (accuracy != 100) {
-				var accuracyPercent = 1 - (accuracy / 100);
+		//used to create a radius for the accuracy and have a very unique randomness
+		if (accuracy != 100) {
+			var accuracyPercent = 1 - (accuracy / 100);
 
-				for (int i = 0; i < 2; i++) {
-					var val = 1 * Random.Range (-accuracyPercent, accuracyPercent);
-					var index = Random.Range (0, 2);
-					if (i == 0) 
-					{
-						if (index == 0)
-							offset = new Vector3 (0, -val, 0);
-						else
-							offset = new Vector3 (0, val, 0);
-					} 
-					else 
-					{
-						if (index == 0)
-							offset = new Vector3 (0, offset.y, -val);
-						else
-							offset = new Vector3 (0, offset.y, val);
-					}
+			for (int i = 0; i < 2; i++) {
+				var val = 1 * Random.Range (-accuracyPercent, accuracyPercent);
+				var index = Random.Range (0, 2);
+				if (i == 0) 
+				{
+					if (index == 0)
+						offset = new Vector3 (0, -val, 0);
+					else
+						offset = new Vector3 (0, val, 0);
+				} 
+				else 
+				{
+					if (index == 0)
+						offset = new Vector3 (0, offset.y, -val);
+					else
+						offset = new Vector3 (0, offset.y, val);
 				}
 			}
+		}
 			
-			if (muzzleVFXParent != null) 
-			{
-				muzzleVFXParent.transform.position = transform.position;
-				muzzleVFXParent.transform.forward = gameObject.transform.forward + offset;
-                foreach (ParticleSystem ps in muzzleVFXComponents)
-                {
-					ps.Clear();
-                    ps.time = 0f;
-                    ps.Play();
+		if (muzzleVFXParent != null) 
+		{
+			muzzleVFXParent.transform.position = transform.position + offset;
+			muzzleVFXParent.transform.forward = gameObject.transform.forward;
+            foreach (ParticleSystem ps in muzzleVFXComponents)
+            {
+				ps.Clear();
+                ps.time = 0f;
+                ps.Play();
 
-                }
             }
+        }
 
-			// clear the previous projectile trail renderer
-			foreach (TrailRenderer tr in  trails)
-			{ 
-				tr.Clear(); 
-			}
+		// clear the previous projectile trail renderer
+		foreach (TrailRenderer tr in  trails)
+		{ 
+			tr.Clear(); 
+		}
 
-			if (autoDeleteAfter > 0)
-			{
-				StartCoroutine(PoolParticle(autoDeleteAfter));
-			}
+		if (autoDeleteAfter > 0)
+		{
+			StartCoroutine(PoolParticle(autoDeleteAfter));
+
 		}
 	}
 
@@ -186,8 +178,17 @@ private void Start()
 	public IEnumerator PoolParticle (float waitTime) {
 
 		yield return new WaitForSeconds (waitTime);
-		gameObject.SetActive(false);
-		StopAllCoroutines();
+        if (hitPrefab != null)
+        {
+            hitVFXParent.transform.SetPositionAndRotation(transform.position, transform.rotation);
+            foreach (ParticleSystem ps in hitVFXComponents)
+            {
+                ps.Clear();
+                ps.time = 0f;
+                ps.Play();
+            }
+        }
+        gameObject.SetActive(false);
 	}
 
     public void SetTarget (GameObject trg)
