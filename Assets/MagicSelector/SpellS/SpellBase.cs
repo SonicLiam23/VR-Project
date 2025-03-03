@@ -14,7 +14,7 @@ public abstract class SpellBase : MonoBehaviour, ISpellState
     [SerializeField] protected List<Direction> spellGesture = new();
 
     protected int hash;
-    protected ControllerSide controllerSide;
+    [SerializeField] protected ControllerSide controllerSide;
 
     [SerializeField] protected int manaCost;
 

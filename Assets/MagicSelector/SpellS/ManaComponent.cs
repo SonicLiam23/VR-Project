@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -8,6 +9,9 @@ public class ManaComponent : MonoBehaviour
     [SerializeField] private int manaRegenPerSecond;
     [HideInInspector] public bool isRegeneratingMana;
     private int maxMana;
+
+    [SerializeField] private bool infiniteMana;
+
     public int mana
     { 
         get
@@ -19,11 +23,13 @@ public class ManaComponent : MonoBehaviour
     private void Start()
     {
         isRegeneratingMana = false;
+
         maxMana = _mana;
     }
 
     public void SpendMana(int amt)
     {
+        amt = infiniteMana ? 0 : amt;
         _mana -= amt;
     }
 

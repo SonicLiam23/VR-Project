@@ -64,15 +64,26 @@ public class PlayerSpellStateMachine : MonoBehaviour
     {
         bool spellFound = true;
         int controllerInd = (int)controller;
+        // will always flip between 0 and 1;
+        int otherController = (controllerInd * -1) + 1;
 
-        if (!spells.ContainsKey(spellHash) || spells[spellHash].GetManaCost() > manaSystem.mana)
+        if (!spells.ContainsKey(spellHash))
         {
             // no spell index, if you try to draw another spell with one equiped (which should be impossible, but gotta account for everything), remove the spell
 
-            // OR if a spell has been found, check there is enough mana
             spellHash = -1;
 
             spellFound = false;
+        }
+        else if (spells[spellHash].GetManaCost() > manaSystem.mana || handStates[otherController] == spells[spellHash])
+        {
+
+            // OR if a spell has been found, check there is enough mana
+
+            // OR make sure the same spell cant be on both hands (will handle 2 handed spells later)
+
+            // it found a spell, so return spellFound as true, to terminate the spell, selection
+            spellHash = -1;
         }
 
         handStates[controllerInd].OnStateLeave();

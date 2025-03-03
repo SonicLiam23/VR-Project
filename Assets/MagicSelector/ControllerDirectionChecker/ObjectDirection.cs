@@ -19,7 +19,6 @@ public class ObjectDirection : MonoBehaviour
 
     private DirectionManager manager;
 
-
     private void Start()
     {
         // parent is offset, parent of offset is the root
