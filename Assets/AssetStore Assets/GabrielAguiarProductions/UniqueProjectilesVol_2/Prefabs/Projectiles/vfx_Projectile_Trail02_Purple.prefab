@@ -19706,7 +19706,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &4509397511954154
 Transform:
   m_ObjectHideFlags: 0
@@ -19746,6 +19746,7 @@ MonoBehaviour:
     type: 3}
   hitPrefab: {fileID: 1003293419235958, guid: 0890b471fcebc784ea851f5520b9d4fd, type: 3}
   autoDeleteAfter: 0
+  direction: {x: 0, y: 0, z: 0}
 --- !u!65 &65406379300426774
 BoxCollider:
   m_ObjectHideFlags: 0

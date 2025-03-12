@@ -14802,7 +14802,7 @@ Transform:
   m_GameObject: {fileID: 1189473170883990}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 5.65, y: 2, z: -0.05}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -14839,6 +14839,7 @@ MonoBehaviour:
     type: 3}
   hitPrefab: {fileID: 1090680790622714, guid: ac672dd87c0dfc748b925451f86ba8e7, type: 3}
   autoDeleteAfter: 0
+  direction: {x: 0, y: 0, z: 0}
 --- !u!65 &65061563641788920
 BoxCollider:
   m_ObjectHideFlags: 0

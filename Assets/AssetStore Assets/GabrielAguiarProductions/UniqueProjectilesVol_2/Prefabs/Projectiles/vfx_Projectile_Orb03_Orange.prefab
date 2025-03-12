@@ -34021,6 +34021,7 @@ MonoBehaviour:
     type: 3}
   hitPrefab: {fileID: 1710709090493062, guid: e126748fbc942f847af7a9f2668a7325, type: 3}
   autoDeleteAfter: 0
+  direction: {x: 0, y: 0, z: 0}
 --- !u!65 &65006740124132730
 BoxCollider:
   m_ObjectHideFlags: 0

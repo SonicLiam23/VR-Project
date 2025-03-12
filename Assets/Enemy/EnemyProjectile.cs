@@ -6,7 +6,7 @@ public class EnemyProjectile : MonoBehaviour
 {
 
     [SerializeField] private float delay;
-    [SerializeField] private ObjectPool projectilePool;
+    [SerializeField] private GameObjectPool projectilePool;
     [SerializeField] private Transform spawnPos;
 
     private void Start()

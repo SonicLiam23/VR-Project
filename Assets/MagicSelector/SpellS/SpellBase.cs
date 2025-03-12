@@ -9,7 +9,7 @@ public abstract class SpellBase : MonoBehaviour, ISpellState
     [Header("Customise Spell")]
     [SerializeField] protected GameObject runePrefab;
     protected GameObject spawnedRune;
-    [SerializeField] protected ObjectPool projectilePool;
+    [SerializeField] protected GameObjectPool projectilePool;
     [SerializeField] private RuneSpawnPosition spawnPosition;
     [SerializeField] protected List<Direction> spellGesture = new();
 
