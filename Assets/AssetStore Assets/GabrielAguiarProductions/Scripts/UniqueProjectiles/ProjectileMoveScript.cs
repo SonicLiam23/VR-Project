@@ -40,8 +40,12 @@ public class ProjectileMoveScript : MonoBehaviour {
 	static private GameObject particlesPool;
 	private GameObject muzzleVFXParent;
 	private ParticleSystem[] muzzleVFXComponents;
-	private GameObject hitVFXParent;
+	private PlaySound muzzleSound;
+
+    private GameObject hitVFXParent;
 	private ParticleSystem[] hitVFXComponents;
+    private PlaySound hitSound;
+
     private TrailRenderer[] trails;
 
     private void OnDisable()
@@ -55,7 +59,7 @@ public class ProjectileMoveScript : MonoBehaviour {
 	{
 		if (particlesPool == null)
 		{
-			particlesPool = GameObject.Find("ParticlesPool");
+			particlesPool = GameObject.Find("_ParticlesPool");
 		}
 
 		if (muzzlePrefab != null)
@@ -66,7 +70,9 @@ public class ProjectileMoveScript : MonoBehaviour {
 			{
 				muzzleVFXComponents = muzzleVFXParent.GetComponentsInChildren<ParticleSystem>(true);
 			}
-		}
+
+            muzzleSound = muzzleVFXParent.GetComponent<PlaySound>();
+        }
         rb = GetComponent<Rigidbody>();
 
         if (hitPrefab != null)
@@ -77,7 +83,9 @@ public class ProjectileMoveScript : MonoBehaviour {
 			{
 				hitVFXComponents = hitVFXParent.GetComponentsInChildren<ParticleSystem>(true);
 			}
-		}
+
+            hitSound = hitVFXParent.GetComponent<PlaySound>();
+        }
 
 		trails = GetComponentsInChildren<TrailRenderer>(true);
 		// this one setting caused me HOURS of pain, so this is to make bloody sure it's off
@@ -126,6 +134,11 @@ public class ProjectileMoveScript : MonoBehaviour {
                 ps.Play();
 
             }
+
+			if (muzzleSound != null && initialized)
+			{
+				muzzleSound.Play();
+			}
         }
 
 		// clear the previous projectile trail renderer
@@ -139,6 +152,8 @@ public class ProjectileMoveScript : MonoBehaviour {
 			StartCoroutine(PoolParticle(autoDeleteAfter));
 
 		}
+
+		initialized = true;
 	}
 
 	void FixedUpdate () 
@@ -169,28 +184,27 @@ public class ProjectileMoveScript : MonoBehaviour {
         if (hitPrefab != null)
         {
             hitVFXParent.transform.SetPositionAndRotation(pos, rot);
+        }
+
+        StartCoroutine(PoolParticle());
+	}
+
+	public IEnumerator PoolParticle (float waitTime = 0f) 
+	{
+		yield return new WaitForSeconds (waitTime);
+        if (hitPrefab != null)
+        {
+
             foreach (ParticleSystem ps in hitVFXComponents)
             {
                 ps.Clear();
                 ps.time = 0f;
                 ps.Play();
             }
-        }
 
-        StartCoroutine(PoolParticle(0f));
-	}
-
-	public IEnumerator PoolParticle (float waitTime) {
-
-		yield return new WaitForSeconds (waitTime);
-        if (hitPrefab != null)
-        {
-            hitVFXParent.transform.SetPositionAndRotation(transform.position, transform.rotation);
-            foreach (ParticleSystem ps in hitVFXComponents)
-            {
-                ps.Clear();
-                ps.time = 0f;
-                ps.Play();
+			if (hitSound != null)
+			{
+                hitSound.Play();
             }
         }
         gameObject.SetActive(false);

@@ -21,10 +21,13 @@ public class SpellSelect : MonoBehaviour
 
     private bool isWheelActive = false;
     private bool isSpellActive = false;
+    private TrailRenderer trail;
 
     private void Start()
     {
         spellSelectWheel.GetComponent<DirectionManager>().spellSelector = this;
+        trail = GetComponent<TrailRenderer>();
+        trail.enabled = false;
     }
 
     // Update is called once per frame
@@ -37,6 +40,8 @@ public class SpellSelect : MonoBehaviour
             isWheelActive = true;
 
             SpawnSpellWheel();
+            trail.Clear();
+            trail.enabled = true;
 
             spellSelectWheel.SetActive(isWheelActive);
         }
@@ -46,6 +51,7 @@ public class SpellSelect : MonoBehaviour
             isWheelActive = false;
             isSpellActive = false;
             spellSelectWheel.SetActive(isWheelActive);
+            trail.enabled = false;
         }
     }
 
@@ -62,6 +68,7 @@ public class SpellSelect : MonoBehaviour
         }
         else
         {
+            trail.enabled = false;
             isSpellActive = true;
             isWheelActive = false;
             spellSelectWheel.SetActive(isWheelActive);
