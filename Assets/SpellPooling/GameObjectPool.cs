@@ -57,9 +57,6 @@ public class GameObjectPool : MonoBehaviour
         {
             obj.SetActive(false);
         }
-        // You always should reuse emenys to prevent garbage collection
-        //
-
     }
 
     public List<GameObject> GetEntirePool(GetEntirePoolMode mode = GetEntirePoolMode.GET_ALL)
