@@ -20030,7 +20030,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 20
   accuracy: 95
-  homingAmount: 6
+  homingAmount: 2
   muzzlePrefab: {fileID: 1831748759461768, guid: 63f3e6d2dbd4ad04fb5079835c89e2b8,
     type: 3}
   hitPrefab: {fileID: 1653409047422494, guid: 83d7d863bf6bfe74c82ae4a0d23bc357, type: 3}

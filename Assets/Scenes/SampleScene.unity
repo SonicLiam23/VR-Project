@@ -6919,7 +6919,7 @@ GameObject:
   - component: {fileID: 181309298}
   m_Layer: 6
   m_Name: XR Origin (XR Rig)
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -6964,7 +6964,7 @@ Transform:
   m_GameObject: {fileID: 181309291}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 10, z: 0}
+  m_LocalPosition: {x: 0, y: 8.52, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -21618,6 +21618,7 @@ GameObject:
   m_Component:
   - component: {fileID: 573080842}
   - component: {fileID: 573080843}
+  - component: {fileID: 573080844}
   m_Layer: 0
   m_Name: Spawn2
   m_TagString: Untagged
@@ -21634,7 +21635,7 @@ Transform:
   m_GameObject: {fileID: 573080841}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0.6521747, z: 0, w: 0.7580687}
-  m_LocalPosition: {x: -33.91, y: 10.416294, z: 0.52000046}
+  m_LocalPosition: {x: -33.91, y: 8, z: 0.52000046}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -21655,6 +21656,27 @@ MonoBehaviour:
   enemyPoolsParent: {fileID: 1041656272}
   _maxEnemies: 0
   spawnRate: 3
+--- !u!135 &573080844
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 573080841}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Radius: 2
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1001 &575362951
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -29314,6 +29336,7 @@ GameObject:
   - component: {fileID: 791645309}
   - component: {fileID: 791645308}
   - component: {fileID: 791645307}
+  - component: {fileID: 791645310}
   m_Layer: 0
   m_Name: Terrain
   m_TagString: Untagged
@@ -29396,6 +29419,37 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1136586086}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &791645310
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 791645306}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a5ac11cc976e418e8d13136b07e1f52, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_AgentTypeID: 0
+  m_CollectObjects: 0
+  m_Size: {x: 10, y: 10, z: 10}
+  m_Center: {x: 0, y: 2, z: 0}
+  m_LayerMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_UseGeometry: 0
+  m_DefaultArea: 0
+  m_GenerateLinks: 0
+  m_IgnoreNavMeshAgent: 1
+  m_IgnoreNavMeshObstacle: 1
+  m_OverrideTileSize: 1
+  m_TileSize: 512
+  m_OverrideVoxelSize: 1
+  m_VoxelSize: 0.1
+  m_MinRegionArea: 2
+  m_NavMeshData: {fileID: 23800000, guid: c562f7f7763ea4048adf1491e2ba93f3, type: 2}
+  m_BuildHeightMesh: 0
 --- !u!4 &791646559 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1167548882203215460, guid: efadd1ea6364a89448507b4ec9158b9b,
@@ -37411,7 +37465,7 @@ GameObject:
   - component: {fileID: 982724430}
   - component: {fileID: 982724431}
   - component: {fileID: 982724432}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: RightHandController
   m_TagString: RightHand
   m_Icon: {fileID: 0}
@@ -38541,7 +38595,7 @@ Transform:
   m_GameObject: {fileID: 1002843592}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1.1176, z: 0}
+  m_LocalPosition: {x: 0, y: 1.9, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -40775,7 +40829,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   pooledObjects: {fileID: 4248426805996765403, guid: 46c58d769750a6b4782956bd47c4dfcb,
     type: 3}
-  poolStartSize: 5
+  poolStartSize: 2
 --- !u!1001 &1087326143
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -65223,7 +65277,7 @@ GameObject:
   - component: {fileID: 1703521372}
   - component: {fileID: 1703521374}
   - component: {fileID: 1703521375}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: LeftHandController
   m_TagString: LeftHand
   m_Icon: {fileID: 0}
@@ -83318,6 +83372,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2140808087}
   - component: {fileID: 2140808088}
+  - component: {fileID: 2140808089}
   m_Layer: 0
   m_Name: Spawn1
   m_TagString: Untagged
@@ -83334,7 +83389,7 @@ Transform:
   m_GameObject: {fileID: 2140808086}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0.59777004, z: -0, w: 0.8016677}
-  m_LocalPosition: {x: 33.910004, y: 10.416294, z: 0.52000046}
+  m_LocalPosition: {x: 33.910004, y: 9, z: 0.52000046}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -83355,6 +83410,27 @@ MonoBehaviour:
   enemyPoolsParent: {fileID: 1041656272}
   _maxEnemies: 3
   spawnRate: 3
+--- !u!135 &2140808089
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2140808086}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Radius: 2
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1001 &2140866809
 PrefabInstance:
   m_ObjectHideFlags: 0

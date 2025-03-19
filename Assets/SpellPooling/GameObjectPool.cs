@@ -44,7 +44,6 @@ public class GameObjectPool : MonoBehaviour
         if (instantiateIfUnavailable)
         {
             GameObject pooledObject = Instantiate(pooledObjects, this.transform);
-            StartCoroutine(DelayBeforEnable(pooledObject));
             return pooledObject;
         }
 
@@ -58,6 +57,9 @@ public class GameObjectPool : MonoBehaviour
         {
             obj.SetActive(false);
         }
+        // You always should reuse emenys to prevent garbage collection
+        //
+
     }
 
     public List<GameObject> GetEntirePool(GetEntirePoolMode mode = GetEntirePoolMode.GET_ALL)
