@@ -21,5 +21,21 @@ public class Damager : MonoBehaviour
                 collider.gameObject.SendMessage("Damage", damage, SendMessageOptions.DontRequireReceiver);
             }
         }
+    }    
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (AOERadius == 0f)
+        {
+            other.gameObject.SendMessage("Damage", damage, SendMessageOptions.DontRequireReceiver);
+        }
+        else
+        {
+            Collider[] collisions = Physics.OverlapSphere(transform.position, AOERadius);
+            foreach (Collider collider in collisions)
+            {
+                collider.gameObject.SendMessage("Damage", damage, SendMessageOptions.DontRequireReceiver);
+            }
+        }
     }
 }

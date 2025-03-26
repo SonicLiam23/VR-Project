@@ -1,8 +1,8 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 // info the enemy needs (enemyDependancies)
+[RequireComponent(typeof(HealthComponent))]
 public class EnemyDeps : MonoBehaviour
 {
     public float distanceToPlayer {get; private set;}
@@ -12,13 +12,18 @@ public class EnemyDeps : MonoBehaviour
 
     [SerializeField] private float updateInfoDelayInS = 0.05f;
     [SerializeField] private float attackDistance = 2.0f;
+    
+    public HealthComponent healthComponent { get; private set; }
+   
 
     private void Awake()
     {
         if (player == null)
         {
             player = Camera.main.transform;
+
         }
+        healthComponent = GetComponent<HealthComponent>();
     }
 
     private void OnEnable()
@@ -30,6 +35,16 @@ public class EnemyDeps : MonoBehaviour
     {
         StopCoroutine(UpdateInfo());
     }
+
+    public void Attacked()
+    {
+        if (canAttack)
+        {
+            GameManager.Instance.mainPlayersHealth.Damage(5f);
+        }
+    }
+
+
 
     private IEnumerator UpdateInfo()
     {

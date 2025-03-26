@@ -2,23 +2,24 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AttackAnim : MonoBehaviour
+public class FighterAnim : MonoBehaviour
 {
     private Animator anim;
-    private Transform player;
     private EnemyDeps enemyInfo;
+    private HealthComponent healthComponent;
 
 
     // Start is called before the first frame update
     void Start()
     {
         enemyInfo = GetComponent<EnemyDeps>();
+        healthComponent = GetComponent<HealthComponent>();
         anim = GetComponent<Animator>();
-        player = GameObject.FindGameObjectWithTag("Player").transform;
+        anim.applyRootMotion = true;
     }
 
     private void Update()
     {
-        anim.SetBool("isPlayerNear", enemyInfo.canAttack);
+        anim.SetBool("canAttack", enemyInfo.canAttack);
     }
 }

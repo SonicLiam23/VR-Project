@@ -1,9 +1,8 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
-using UnityEngine.XR.Interaction.Toolkit.AR;
 
+[RequireComponent(typeof(EnemyDeps))]
 public class AIMovement : MonoBehaviour
 {
     private NavMeshAgent agent;
@@ -45,13 +44,12 @@ public class AIMovement : MonoBehaviour
     {
         while (true)
         {
-            yield return null;
-            agent.isStopped = enemyInfo.canAttack;
-            if (!enemyInfo.canAttack)
+            agent.isStopped = enemyInfo.canAttack || enemyInfo.healthComponent.isDead;
+            if (!enemyInfo.canAttack && !enemyInfo.healthComponent.isDead)
             {
-                agent.isStopped = false;
                 agent.SetDestination(target.position);
             }
+            yield return null;
         }
 
     }
