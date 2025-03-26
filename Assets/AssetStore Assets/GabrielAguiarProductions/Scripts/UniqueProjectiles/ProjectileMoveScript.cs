@@ -172,6 +172,11 @@ public class ProjectileMoveScript : MonoBehaviour {
 				transform.forward = Vector3.Slerp(transform.forward, delta.normalized, homingAmount * Time.deltaTime);
 				direction = transform.forward;
 			}
+			// if the target died after homing, do not get a new target and clear the current one
+			else
+			{
+                target = null;
+            }
         }
     }
 

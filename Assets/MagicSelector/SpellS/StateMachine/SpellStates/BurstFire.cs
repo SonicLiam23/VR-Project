@@ -53,7 +53,7 @@ public class BurstFire
 
         if (projectile != null)
         {
-
+            
             if (target != null)
             {
                 projectile.GetComponent<ProjectileMoveScript>().SetTarget(target);

@@ -1207,7 +1207,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 66fdc7fc8554b5c4d88483efc2cc4f5f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  reaquireTargetDelayInS: 0.05
 --- !u!195 &5652162320954680489
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -1299,4 +1298,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   updateInfoDelayInS: 0.05
-  attackDistance: 5
+  attackDistance: 3

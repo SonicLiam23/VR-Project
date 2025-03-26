@@ -7024,7 +7024,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_System: {fileID: 181309297}
-  m_MoveSpeed: 3
+  m_MoveSpeed: 4
   m_EnableStrafe: 1
   m_EnableFly: 0
   m_UseGravity: 1
@@ -83408,7 +83408,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemyPoolsParent: {fileID: 1041656272}
-  _maxEnemies: 3
+  _maxEnemies: 6
   spawnRate: 3
 --- !u!135 &2140808089
 SphereCollider:

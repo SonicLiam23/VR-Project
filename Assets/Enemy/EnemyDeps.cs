@@ -17,13 +17,18 @@ public class EnemyDeps : MonoBehaviour
     {
         if (player == null)
         {
-            player = GameObject.FindGameObjectWithTag("Player").transform;
+            player = Camera.main.transform;
         }
     }
 
-    private void Start()
+    private void OnEnable()
     {
         StartCoroutine(UpdateInfo());
+    }
+
+    private void OnDisable()
+    {
+        StopCoroutine(UpdateInfo());
     }
 
     private IEnumerator UpdateInfo()
