@@ -17,13 +17,11 @@ public class DirectionManager : MonoBehaviour
     // set in editor
     public ControllerSide controllerToCheck = ControllerSide.NONE;
     [HideInInspector] public SpellSelect spellSelector;
-    private int currentGestureHash;
     private List<Direction> currentGesture = new();
 
     private void OnEnable()
     {
         // new spell being drawn, reset hash
-        currentGestureHash = 1;
         currentGesture.Clear();
     }
 
