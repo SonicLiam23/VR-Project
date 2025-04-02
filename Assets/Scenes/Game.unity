@@ -97,7 +97,8 @@ LightmapSettings:
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
   m_LightingDataAsset: {fileID: 0}
-  m_LightingSettings: {fileID: 0}
+  m_LightingSettings: {fileID: 4890085278179872738, guid: 6a4444061c12eea459694422e2e6b311,
+    type: 2}
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -20343,7 +20344,7 @@ Transform:
   - {fileID: 2140808087}
   - {fileID: 573080842}
   - {fileID: 1041656272}
-  m_Father: {fileID: 924017777}
+  m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &526163944
 MonoBehaviour:
@@ -29936,7 +29937,7 @@ Transform:
   m_GameObject: {fileID: 808471626}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.02, y: 0, z: 1}
+  m_LocalPosition: {x: -0.02, y: -0.01, z: 1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -34904,7 +34905,6 @@ Transform:
   - {fileID: 887775631}
   - {fileID: 664352169}
   - {fileID: 1401462929}
-  - {fileID: 526163943}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &925211369
@@ -37198,8 +37198,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d7e1668dc4267a14090d5da14fdb24cb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  startHealth: 100
+  startHealth: 20
   bloodVignette: {fileID: 1986549862}
+  spriteRenderer: {fileID: 1986549863}
+  bloodTextures:
+  - {fileID: 21300000, guid: d7a527b0aebd02642bba5438e9b6a9b2, type: 3}
+  - {fileID: 21300000, guid: f173bbc12ddaf5c4e8fe503b9ecccc93, type: 3}
+  - {fileID: 21300000, guid: d7811cbb6801f204ea58c914a3074134, type: 3}
 --- !u!4 &976140061 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7369101920120538786, guid: 4b1b6b74367801d40ab4d823367829bf,
@@ -77970,7 +77975,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 418eb836f42a5ea489689a71b80d3b6e, type: 3}
+  m_Sprite: {fileID: 21300000, guid: d7a527b0aebd02642bba5438e9b6a9b2, type: 3}
   m_Color: {r: 1, g: 0, b: 0, a: 0}
   m_FlipX: 0
   m_FlipY: 0
@@ -84145,6 +84150,7 @@ SceneRoots:
   - {fileID: 6778531010021870273}
   - {fileID: 809291365}
   - {fileID: 181309294}
+  - {fileID: 526163943}
   - {fileID: 924017777}
   - {fileID: 1723529448}
   - {fileID: 2093825092}

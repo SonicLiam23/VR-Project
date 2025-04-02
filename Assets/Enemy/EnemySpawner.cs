@@ -6,14 +6,15 @@ using UnityEngine;
 
 public class EnemySpawner : MonoBehaviour
 {
-    [SerializeField] GameObjectPool[] enemyPools;
+    public GameObjectPool[] enemyPools;
     private bool canSpawn;
 
 
 
-    private void Start()
+    private void OnEnable()
     {
         canSpawn = true;
+
     }
 
     // returns if an enemy has been spawned
@@ -22,7 +23,7 @@ public class EnemySpawner : MonoBehaviour
         if (canSpawn)
         {
             GameObjectPool enemyPool = enemyPools[Random.Range(0, enemyPools.Length)];
-            if (enemyPool.GetEntirePool(GameObjectPool.GetEntirePoolMode.GET_ONLY_ACTIVE).Count < GameManager.Instance.maxEnemies)
+            if (enemyPool.CurrentlyActiveCount() < GameManager.Instance.maxEnemies)
             {
                 GameObject enemy = enemyPool.GetObject(true);
                 if (enemy != null)

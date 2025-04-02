@@ -4,17 +4,11 @@ using System.Linq;
 using Unity.VisualScripting;
 using Unity.XR.CoreUtils;
 using UnityEngine;
+using static Unity.VisualScripting.Metadata;
 
 [System.Serializable]
 public class GameObjectPool : MonoBehaviour
 {
-    public enum GetEntirePoolMode
-    {
-        GET_ONLY_ACTIVE, GET_ONLY_INACTIVE, GET_ALL
-    };
-
-
-
     [SerializeField] private GameObject pooledObjects;
     [SerializeField] private int poolStartSize;
 
@@ -59,37 +53,26 @@ public class GameObjectPool : MonoBehaviour
             obj.SetActive(false);
         }
     }
-
-    public List<GameObject> GetEntirePool(GetEntirePoolMode mode = GetEntirePoolMode.GET_ALL)
+    
+    public void ReturnAllToPool()
     {
-        List<GameObject> children = new List<GameObject>();
-        // it makes me assign it here or it errors, it's a little dumb
-        bool getOnlyActive = false;
-        switch (mode)
+        for (int i = 0; i < transform.childCount; ++i)
         {
-            case GetEntirePoolMode.GET_ALL:
-                gameObject.GetChildGameObjects(children);
-                return children;
+            Transform child = transform.GetChild(i);
+            if (child.gameObject.activeInHierarchy) child .gameObject.SetActive(false);
+        }
+    }
 
-            case GetEntirePoolMode.GET_ONLY_ACTIVE:
-                getOnlyActive = true;
-                break;
-
-            case GetEntirePoolMode.GET_ONLY_INACTIVE:
-                getOnlyActive = false;
-                break;
+    public int CurrentlyActiveCount()
+    {
+        int count = 0;
+        for (int i = 0; i < transform.childCount; ++i)
+        {
+            Transform child = transform.GetChild(i);
+            if (child.gameObject.activeInHierarchy) count++;
         }
 
-        // no idea if this is completley useless but... I feel like it's smart xD
-        foreach (Transform child in transform)
-        {
-            if (child.gameObject.activeInHierarchy == getOnlyActive)
-            {
-                children.Add(child.gameObject);
-                //continue;
-            }
-        }
-        return children;
+        return count;
     }
 
     private IEnumerator DelayBeforEnable(GameObject toEnable)
@@ -98,5 +81,4 @@ public class GameObjectPool : MonoBehaviour
         toEnable.SetActive(true);
 
     }
-
 }
