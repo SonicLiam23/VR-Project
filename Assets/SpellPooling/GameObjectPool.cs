@@ -5,6 +5,7 @@ using Unity.VisualScripting;
 using Unity.XR.CoreUtils;
 using UnityEngine;
 
+[System.Serializable]
 public class GameObjectPool : MonoBehaviour
 {
     public enum GetEntirePoolMode

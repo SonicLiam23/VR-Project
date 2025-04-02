@@ -11,20 +11,21 @@ public class GameManager : MonoBehaviour
     public UnityEvent PlayerDied;
     public UnityEvent PlayerStart;
     public PlayerHealth mainPlayersHealth;
-    public bool spawnersActive { get; private set; }
+    public int maxEnemies;
+    
     [SerializeField] private GameObject spawners;
+    public bool spawnersActive { get { return spawners.activeInHierarchy; } }
 
     private void Awake()
     { 
         if (Instance == null) Instance = this;
-        Instance.spawnersActive = false;
+        
     }
 
     
 
     public void ToggleSpawning()
     {
-        Instance.spawnersActive = !Instance.spawnersActive;
-        Instance.spawners.SetActive(Instance.spawnersActive);
+        Instance.spawners.SetActive(!Instance.spawnersActive);
     }
 }

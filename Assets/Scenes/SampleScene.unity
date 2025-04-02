@@ -20319,6 +20319,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 526163943}
+  - component: {fileID: 526163944}
   m_Layer: 0
   m_Name: ====ENEMY + SPAWNS====
   m_TagString: Untagged
@@ -20334,7 +20335,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 526163942}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -20342,8 +20343,21 @@ Transform:
   - {fileID: 2140808087}
   - {fileID: 573080842}
   - {fileID: 1041656272}
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 924017777}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &526163944
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 526163942}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 68eafba95b97d224c9f8ebb85cea9022, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  spawnDelayInS: 3
 --- !u!4 &527509180 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2780843067682085652, guid: 427fc8a59d9d42b4596b833da813b401,
@@ -21673,9 +21687,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a2c782724f177684abc0f4fc073c8784, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyPoolsParent: {fileID: 1041656272}
-  _maxEnemies: 0
-  spawnRate: 3
+  enemyPools:
+  - {fileID: 1086901293}
 --- !u!135 &573080844
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -34891,6 +34904,7 @@ Transform:
   - {fileID: 887775631}
   - {fileID: 664352169}
   - {fileID: 1401462929}
+  - {fileID: 526163943}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &925211369
@@ -77150,6 +77164,7 @@ MonoBehaviour:
           m_BoolArgument: 1
         m_CallState: 2
   mainPlayersHealth: {fileID: 975047821}
+  maxEnemies: 4
   spawners: {fileID: 526163942}
 --- !u!4 &1968268387
 Transform:
@@ -83716,9 +83731,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a2c782724f177684abc0f4fc073c8784, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyPoolsParent: {fileID: 1041656272}
-  _maxEnemies: 1
-  spawnRate: 3
+  enemyPools:
+  - {fileID: 1086901293}
 --- !u!135 &2140808089
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -84132,7 +84146,6 @@ SceneRoots:
   - {fileID: 809291365}
   - {fileID: 181309294}
   - {fileID: 924017777}
-  - {fileID: 526163943}
   - {fileID: 1723529448}
   - {fileID: 2093825092}
   - {fileID: 1705315000}
