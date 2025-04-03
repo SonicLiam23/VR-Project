@@ -7,7 +7,10 @@ public class PlaySound : MonoBehaviour
     [SerializeField] private bool playOnEnable;
     private void OnEnable()
     {
-        //AudioManager.instance.Play(soundName);
+        if (playOnEnable)
+        {
+            Play();
+        }
     }
 
     public void Play()

@@ -48829,7 +48829,7 @@ MonoBehaviour:
   muzzlePrefab: {fileID: 1997484122971342, guid: 36b9d80e2a0c8f64bac12e9f94852fc5,
     type: 3}
   hitPrefab: {fileID: 1620571452208104, guid: 2c03c1f1817cd3646b167c96f413a1f4, type: 3}
-  autoDeleteAfter: 0
+  autoDeleteAfter: 3
   direction: {x: 0, y: 0, z: 0}
 --- !u!54 &54690089591678400
 Rigidbody:

@@ -13,9 +13,7 @@
 #pragma warning disable 0414 // private field assigned but not used.
 
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using static UnityEngine.Rendering.DebugUI.Table;
 
 public class ProjectileMoveScript : MonoBehaviour {
 
@@ -34,7 +32,6 @@ public class ProjectileMoveScript : MonoBehaviour {
 	[SerializeField] private Vector3 direction;
 	private Rigidbody rb;
     private GameObject target = null;
-	private bool initialized = false;
 
 	// each projectile will have its own Muzzle and Hit particle objects assigned to them
 	static private GameObject particlesPool;
@@ -135,7 +132,7 @@ public class ProjectileMoveScript : MonoBehaviour {
 
             }
 
-			if (muzzleSound != null && initialized)
+			if (muzzleSound != null)
 			{
 				muzzleSound.Play();
 			}
@@ -152,8 +149,6 @@ public class ProjectileMoveScript : MonoBehaviour {
 			StartCoroutine(PoolParticle(autoDeleteAfter));
 
 		}
-
-		initialized = true;
 	}
 
 	void FixedUpdate () 
