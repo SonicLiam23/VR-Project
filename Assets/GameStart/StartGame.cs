@@ -1,19 +1,29 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class StartGame : MonoBehaviour
 {
-    [SerializeField] private Material materialToChange;
-    [SerializeField] private Color flashColour;
-    Color startColour;
-    
-    
+    private List<Material> materials;
+    [SerializeField] private Color flashColour;    
+    List<Color> startColours;
+    [SerializeField] GameObject[] portalComponents;
+    [SerializeField] private float flashDuration;
+    public AnimationCurve curve;
+     
+
     private void Awake()
     {
-        startColour = materialToChange.GetColor("Color_da8fc87eb56f4cd9912e2daa94a68802");
+        materials = new();
+        startColours = new();
+        for(int i = 0; i < portalComponents.Length; ++i)
+        {
+            materials.Add(new Material(portalComponents[i].GetComponent<Renderer>().material));
+            startColours.Add(materials[i].GetColor("_BaseColor"));
+            portalComponents[i].GetComponent<Renderer>().material = materials[i];
+        }
+
     }
 
     private void OnTriggerEnter(Collider other)
@@ -24,7 +34,7 @@ public class StartGame : MonoBehaviour
             // ... and it was a hand that touched it
             if (other.gameObject.CompareTag("LeftHand") || other.gameObject.CompareTag("RightHand"))
             {
-                StartCoroutine(FlashPortal());
+                StartCoroutine(FlashPortal(flashDuration));
                 GameManager.Instance.PlayerStart.Invoke();
             }    
         }
@@ -34,13 +44,26 @@ public class StartGame : MonoBehaviour
     {
         float time = 0f;
         
+        for(int i = 0;i < materials.Count; ++i)
+        {
+            materials[i].color = flashColour;
+        }
+        
 
         while (time < duration)
         {
-            materialToChange.SetColor("Color_da8fc87eb56f4cd9912e2daa94a68802", Color.Lerp(flashColour, startColour, time / duration));
+            float t = curve.Evaluate(time/duration);
+            for (int i = 0; i < materials.Count; ++i)
+            {
+                materials[i].SetColor("_BaseColor", Color.Lerp(flashColour, startColours[i], t));
+            }
             time += Time.deltaTime;
             yield return null;
         }
-        materialToChange.color = startColour;
+
+        for (int i = 0; i < materials.Count; ++i)
+        {
+            materials[i].color = startColours[i];
+        }
     }
 }

@@ -6152,8 +6152,44 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dd78301fb477c504bab915edf4e4a90a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  materialToChange: {fileID: 2100000, guid: 6fa6c137fd549ba4fbea00dd3ef67544, type: 2}
-  flashColour: {r: 1, g: 0.027027037, b: 0, a: 1}
+  flashColour: {r: 1, g: 0, b: 0, a: 0.7294118}
+  portalComponents:
+  - {fileID: 147549927}
+  - {fileID: 1768769516}
+  flashDuration: 20
+  curve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 0.27005064
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.15550926
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 2
+      outSlope: 2
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!1 &148000098
 GameObject:
   m_ObjectHideFlags: 0
@@ -32504,7 +32540,7 @@ PrefabInstance:
     - target: {fileID: 1449338034879538581, guid: e67cc229bcbe69a46843a914d7185a7b,
         type: 3}
       propertyPath: m_Enabled
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1605945361543876421, guid: e67cc229bcbe69a46843a914d7185a7b,
         type: 3}
@@ -32524,7 +32560,7 @@ PrefabInstance:
     - target: {fileID: 2272625797981518458, guid: e67cc229bcbe69a46843a914d7185a7b,
         type: 3}
       propertyPath: m_Enabled
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3159635575640874069, guid: e67cc229bcbe69a46843a914d7185a7b,
         type: 3}
@@ -32534,8 +32570,14 @@ PrefabInstance:
     - target: {fileID: 3453832416121669434, guid: e67cc229bcbe69a46843a914d7185a7b,
         type: 3}
       propertyPath: m_Enabled
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4248742279120995445, guid: e67cc229bcbe69a46843a914d7185a7b,
+        type: 3}
+      propertyPath: controllerHaptics
+      value: 
+      objectReference: {fileID: -8785819595477538065, guid: c348712bda248c246b8c49b3db54643f,
+        type: 3}
     - target: {fileID: 4248742279120995445, guid: e67cc229bcbe69a46843a914d7185a7b,
         type: 3}
       propertyPath: controllerToCheck
@@ -32544,7 +32586,7 @@ PrefabInstance:
     - target: {fileID: 4373083754377696808, guid: e67cc229bcbe69a46843a914d7185a7b,
         type: 3}
       propertyPath: m_Enabled
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4407885297850965154, guid: e67cc229bcbe69a46843a914d7185a7b,
         type: 3}
@@ -32609,17 +32651,17 @@ PrefabInstance:
     - target: {fileID: 4959386588181886494, guid: e67cc229bcbe69a46843a914d7185a7b,
         type: 3}
       propertyPath: m_Enabled
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5579284015800448591, guid: e67cc229bcbe69a46843a914d7185a7b,
         type: 3}
       propertyPath: m_Enabled
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5591892525265940287, guid: e67cc229bcbe69a46843a914d7185a7b,
         type: 3}
       propertyPath: m_Enabled
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5909964208148789059, guid: e67cc229bcbe69a46843a914d7185a7b,
         type: 3}
@@ -32659,7 +32701,7 @@ PrefabInstance:
     - target: {fileID: 6416529012443577748, guid: e67cc229bcbe69a46843a914d7185a7b,
         type: 3}
       propertyPath: m_Enabled
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6470955979704658042, guid: e67cc229bcbe69a46843a914d7185a7b,
         type: 3}
@@ -51674,7 +51716,7 @@ PrefabInstance:
     - target: {fileID: 1449338034879538581, guid: e67cc229bcbe69a46843a914d7185a7b,
         type: 3}
       propertyPath: m_Enabled
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1605945361543876421, guid: e67cc229bcbe69a46843a914d7185a7b,
         type: 3}
@@ -51694,7 +51736,7 @@ PrefabInstance:
     - target: {fileID: 2272625797981518458, guid: e67cc229bcbe69a46843a914d7185a7b,
         type: 3}
       propertyPath: m_Enabled
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3159635575640874069, guid: e67cc229bcbe69a46843a914d7185a7b,
         type: 3}
@@ -51704,8 +51746,14 @@ PrefabInstance:
     - target: {fileID: 3453832416121669434, guid: e67cc229bcbe69a46843a914d7185a7b,
         type: 3}
       propertyPath: m_Enabled
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4248742279120995445, guid: e67cc229bcbe69a46843a914d7185a7b,
+        type: 3}
+      propertyPath: controllerHaptics
+      value: 
+      objectReference: {fileID: -8222252007134549311, guid: c348712bda248c246b8c49b3db54643f,
+        type: 3}
     - target: {fileID: 4248742279120995445, guid: e67cc229bcbe69a46843a914d7185a7b,
         type: 3}
       propertyPath: controllerToCheck
@@ -51714,7 +51762,7 @@ PrefabInstance:
     - target: {fileID: 4373083754377696808, guid: e67cc229bcbe69a46843a914d7185a7b,
         type: 3}
       propertyPath: m_Enabled
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4407885297850965154, guid: e67cc229bcbe69a46843a914d7185a7b,
         type: 3}
@@ -51779,17 +51827,17 @@ PrefabInstance:
     - target: {fileID: 4959386588181886494, guid: e67cc229bcbe69a46843a914d7185a7b,
         type: 3}
       propertyPath: m_Enabled
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5579284015800448591, guid: e67cc229bcbe69a46843a914d7185a7b,
         type: 3}
       propertyPath: m_Enabled
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5591892525265940287, guid: e67cc229bcbe69a46843a914d7185a7b,
         type: 3}
       propertyPath: m_Enabled
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5909964208148789059, guid: e67cc229bcbe69a46843a914d7185a7b,
         type: 3}
@@ -51829,7 +51877,7 @@ PrefabInstance:
     - target: {fileID: 6416529012443577748, guid: e67cc229bcbe69a46843a914d7185a7b,
         type: 3}
       propertyPath: m_Enabled
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6470955979704658042, guid: e67cc229bcbe69a46843a914d7185a7b,
         type: 3}
@@ -56187,10 +56235,25 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1778587032}
     m_Modifications:
+    - target: {fileID: 645063202722794293, guid: 9f81c3143399cab4c8b090554d4d72ab,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1499604456409778193, guid: 9f81c3143399cab4c8b090554d4d72ab,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1499604456409778193, guid: 9f81c3143399cab4c8b090554d4d72ab,
         type: 3}
       propertyPath: m_StaticEditorFlags
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1970881120096836332, guid: 9f81c3143399cab4c8b090554d4d72ab,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3028604227407612011, guid: 9f81c3143399cab4c8b090554d4d72ab,
         type: 3}
@@ -56251,6 +56314,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5507168907946637682, guid: 9f81c3143399cab4c8b090554d4d72ab,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5507168907946637682, guid: 9f81c3143399cab4c8b090554d4d72ab,
         type: 3}
@@ -69010,6 +69078,12 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8803f955f89c5a64f84a3bea47912c01, type: 3}
+--- !u!1 &1768769516 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1499604456409778193, guid: 9f81c3143399cab4c8b090554d4d72ab,
+    type: 3}
+  m_PrefabInstance: {fileID: 1461032961}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1770927614
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -81006,8 +81080,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_text: "Tablet of Gods (credits)\n\nGod of Programming, AI, Design and concept:\nSonicLiam\n\nGod
-    of Enviroment: \nJustCreate\n\nGod of Magic Runes:\nStarryMoMo\n\nGod of Projectiles:\nGabrielAguiarProductions\n\nGod
-    of Enemy Models:\nPolySplitGames\n\nGod of "
+    of Map Creation: \nJustCreate\n\nGod of Runes:\nStarryMoMo\n\nGod of Projectiles:\nGabrielAguiarProductions\n\nGod
+    of Enemy Models:\nPolySplitGames\n\nGods of Sound:\n\n"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
